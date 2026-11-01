@@ -1,0 +1,6 @@
+# Optional local Kokoro text-to-speech backend (ONNX, ~3x realtime on CPU).
+# Speech models download to .runtime/tts/kokoro on first use; see docs/operations.md.
+kokoro-onnx==0.6.1
+espeakng-loader==0.2.4
+onnxruntime==1.31.1
+soundfile==0.14.0

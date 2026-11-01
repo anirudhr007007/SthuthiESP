@@ -202,13 +202,189 @@ class _Pyttsx3Backend:
         self._engine = None
 
 
+class _RuntimeAssetsMixin:
+    """Resolve paths for downloaded TTS assets under .runtime/tts."""
+
+    def _tts_dir(self) -> Path:
+        from pathlib import Path
+
+        directory = Path(__file__).resolve().parent / ".runtime" / "tts"
+        directory.mkdir(parents=True, exist_ok=True)
+        return directory
+
+
+class _KokoroBackend(_RuntimeAssetsMixin):
+    """Local Kokoro-82M via ONNX (int8); plays chunks as they are generated.
+
+    Assets live in .runtime/tts/kokoro: model_quantized.onnx and
+    voices-v1.0.bin. This is roughly 3x realtime on CPU and keeps full
+    Kokoro voice quality, unlike the slow torch KPipeline path.
+    """
+
+    MODEL_FILE = "kokoro/model_quantized.onnx"
+    VOICES_FILE = "kokoro/voices-v1.0.bin"
+
+    def __init__(self, voice_name: str, rate: int) -> None:
+        from espeakng_loader import get_data_path, get_library_path
+        from kokoro_onnx import Kokoro
+        from kokoro_onnx.config import EspeakConfig
+
+        directory = self._tts_dir()
+        model = directory / self.MODEL_FILE
+        voices = directory / self.VOICES_FILE
+        if not model.exists():
+            raise FileNotFoundError(f"Kokoro ONNX model missing: {model}")
+        if not voices.exists():
+            raise FileNotFoundError(f"Kokoro voices missing: {voices}")
+        espeak = EspeakConfig(lib_path=get_library_path(), data_path=get_data_path())
+        self._kokoro = Kokoro(str(model), str(voices), espeak_config=espeak)
+        self._voice = voice_name or "af_heart"
+        self._speed = max(0.5, min(2.0, int(rate) / 165.0))
+        print(f"Kokoro local voice ready: {self._voice}")
+
+    def speak(self, message: str) -> None:
+        import asyncio
+        import io
+        import queue
+        import threading
+
+        import soundfile as sf
+        import winsound
+
+        pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=2)
+
+        def produce() -> None:
+            async def run() -> None:
+                async for audio, sample_rate in self._kokoro.create_stream(
+                    message, voice=self._voice, speed=self._speed
+                ):
+                    buffer = io.BytesIO()
+                    sf.write(buffer, audio, sample_rate, format="WAV", subtype="PCM_16")
+                    pieces.put(buffer.getvalue())
+
+            try:
+                asyncio.run(run())
+            except Exception:
+                pass
+            finally:
+                pieces.put(None)
+
+        threading.Thread(target=produce, daemon=True).start()
+        while True:
+            piece = pieces.get()
+            if piece is None:
+                break
+            winsound.PlaySound(piece, winsound.SND_MEMORY)
+
+    def close(self) -> None:
+        self._kokoro = None
+
+
+class _PiperBackend(_RuntimeAssetsMixin):
+    """Local Piper TTS (en-US lessac); fast CPU neural voice.
+
+    Assets live in .runtime/tts. The medium voice is preferred for speed and
+    the high-quality voice is used as a fallback if medium is absent.
+    SPEECH_VOICE is ignored for Piper, lessac is bundled.
+    Sentences are synthesized and played back-to-back, so the first words
+    start quickly instead of waiting for the whole answer.
+    """
+
+    MODEL_FILES = ("en_US-lessac-medium.onnx", "en_US-lessac-high.onnx")
+
+    def __init__(self, rate: int) -> None:
+        from piper import PiperVoice, SynthesisConfig
+
+        directory = self._tts_dir()
+        model = next(
+            (directory / name for name in self.MODEL_FILES if (directory / name).exists()),
+            None,
+        )
+        if model is None:
+            raise FileNotFoundError(
+                f"Piper model missing: expected one of {self.MODEL_FILES} in {directory}"
+            )
+        self._voice = PiperVoice.load(str(model))
+        length_scale = 165.0 / max(80, int(rate))
+        self._config = SynthesisConfig(length_scale=max(0.7, min(1.5, length_scale)))
+        print(f"Piper local voice ready: {model.stem}")
+
+    def _sentence_chunks(self, message: str) -> list[str]:
+        """Split on sentence ends, keeping abbreviations intact."""
+        import re
+
+        parts = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\"'])", message.strip())
+        abbrevations = {"Dr", "Mr", "Mrs", "Ms", "Prof", "St", "No", "vs", "e.g", "i.e"}
+        merged: list[str] = []
+        for part in parts:
+            if merged:
+                previous = merged[-1].rstrip()[-10:]
+                defragment = re.search(r"(?:[A-Za-z]|\bAP|\bA)\.$", previous) or any(
+                    previous.endswith(f"{word}.") for word in abbrevations
+                )
+                if defragment:
+                    merged[-1] = f"{merged[-1]} {part}".strip()
+                    continue
+            merged.append(part.strip())
+        return [chunk for chunk in merged if chunk and chunk[-1:] not in {"", " "}]
+
+    def speak(self, message: str) -> None:
+        import io
+        import queue
+        import threading
+
+        import numpy as np
+        import soundfile as sf
+        import winsound
+
+        pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=2)
+
+        def produce() -> None:
+            try:
+                for chunk in self._sentence_chunks(message):
+                    rendered = [chunk_audio for chunk_audio in self._voice.synthesize(chunk, self._config)]
+                    if not rendered:
+                        continue
+                    audio = np.concatenate([item.audio_float_array for item in rendered])
+                    sample_rate = rendered[0].sample_rate
+                    buffer = io.BytesIO()
+                    sf.write(buffer, audio, int(sample_rate), format="WAV", subtype="PCM_16")
+                    pieces.put(buffer.getvalue())
+            except Exception:
+                pass
+            finally:
+                pieces.put(None)
+
+        threading.Thread(target=produce, daemon=True).start()
+        while True:
+            piece = pieces.get()
+            if piece is None:
+                break
+            winsound.PlaySound(piece, winsound.SND_MEMORY)
+
+    def close(self) -> None:
+        self._voice = None
+
+
+
 def _default_backend_factory(
     output_name: str,
     voice_name: str,
     rate: int,
     volume: float,
+    engine: str = "sapi",
 ) -> Callable[[], SpeechBackend]:
     def create() -> SpeechBackend:
+        if engine == "kokoro":
+            try:
+                return _KokoroBackend(voice_name, rate)
+            except Exception as error:
+                print(f"Kokoro unavailable ({type(error).__name__}); trying Piper, then system speech.")
+        if engine in ("kokoro", "piper"):
+            try:
+                return _PiperBackend(rate)
+            except Exception as error:
+                print(f"Piper unavailable ({type(error).__name__}); falling back to system speech.")
         if os.name == "nt":
             return _WindowsSapiBackend(output_name, voice_name, rate, volume)
         return _Pyttsx3Backend(output_name, voice_name, rate, volume)
@@ -237,6 +413,7 @@ class SpeechService:
         max_queue: int = 25,
         idle_grace: float = 0.6,
         recent_window: float = 20.0,
+        engine: str = "sapi",
         backend_factory: Callable[[], SpeechBackend] | None = None,
     ) -> None:
         self.enabled = bool(enabled)
@@ -246,9 +423,11 @@ class SpeechService:
         self.volume = max(0.0, min(1.0, float(volume)))
         self.idle_grace = max(0.0, float(idle_grace))
         self.recent_window = max(2.0, float(recent_window))
+        self.engine = str(engine).lower()
         self._max_queue = max(1, int(max_queue))
         self._backend_factory = backend_factory or _default_backend_factory(
             self.output_name, self.voice_name, self.rate, self.volume
+            , self.engine
         )
 
         self._condition = threading.Condition()

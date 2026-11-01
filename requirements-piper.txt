@@ -1,0 +1,6 @@
+# Optional local Piper text-to-speech backend (fast CPU neural voice).
+# Voice model downloads to .runtime/tts/en_US-lessac-high.onnx on first use.
+piper-tts==1.8.0
+espeakng-loader==0.2.4
+onnxruntime==1.31.1
+soundfile==0.14.0

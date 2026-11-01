@@ -199,6 +199,7 @@ class Settings:
 
     # Speech output
     speech_output: str
+    speech_engine: str
     speech_voice: str
     speech_rate: int
     speech_volume: float
@@ -300,6 +301,7 @@ class Settings:
             echo_recent_window=max(2.0, _env_float("ECHO_RECENT_WINDOW", 20.0)),
             voice_debug=_env_bool("VOICE_DEBUG", False),
             speech_output=_env_text("SPEECH_OUTPUT", ""),
+            speech_engine=_env_text("SPEECH_ENGINE", "sapi").lower() or "sapi",
             speech_voice=_env_text("SPEECH_VOICE", ""),
             speech_rate=min(320, max(80, _env_int("SPEECH_RATE", 165))),
             speech_volume=min(1.0, max(0.0, _env_float("SPEECH_VOLUME", 1.0))),

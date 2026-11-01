@@ -665,6 +665,7 @@ def main() -> int:
         max_queue=settings.speech_queue_size,
         idle_grace=settings.echo_idle_grace,
         recent_window=settings.echo_recent_window,
+        engine=settings.speech_engine,
     )
     state = AssistantState("Starting")
     stop_event = threading.Event()

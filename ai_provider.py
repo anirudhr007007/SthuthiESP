@@ -1119,6 +1119,7 @@ def _ask_ollama(question: str, settings: Settings, system_prompt: str) -> str:
             ],
             "stream": False,
             "think": False,
+            "keep_alive": "1h",
             "options": {"temperature": 0.2, "num_predict": MAX_OUTPUT_TOKENS},
         },
         {},
