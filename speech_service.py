@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import os
+import queue
 import re
 import threading
 import time
 from collections import deque
 from difflib import SequenceMatcher
+from pathlib import Path
 from typing import Callable, Iterable, Protocol
 
 
@@ -73,6 +75,61 @@ def _sapi_rate(words_per_minute: int) -> int:
     """Map a words-per-minute rate onto SAPI's -10..10 scale."""
 
     return max(-10, min(10, round((int(words_per_minute) - 165) / 20)))
+
+
+_winsound_hinted: set[str] = set()
+
+
+def _print_winsound_hint(name: str, error: BaseException) -> None:
+    """Once per backend name, explain a fallback caused by winsound import."""
+    if not isinstance(error, (ImportError, ModuleNotFoundError)):
+        return
+    if "winsound" not in f"{getattr(error, 'name', '')} {error}".casefold():
+        return
+    if name in _winsound_hinted:
+        return
+    _winsound_hinted.add(name)
+    print(
+        f"note: {name} audio playback uses winsound, which is Windows-only "
+        "in this build"
+    )
+
+
+def _note_stop(stop_logged: list[bool]) -> None:
+    """Log at most once per speak call that the producer gives up feeding."""
+
+    if not stop_logged[0]:
+        stop_logged[0] = True
+        print("Playback stopped; the producer stops producing.")
+
+
+def _offer_piece(
+    pieces: queue.Queue[bytes | None],
+    aborted: threading.Event,
+    stop_logged: list[bool],
+    piece: bytes,
+    timeout: float = 10.0,
+) -> bool:
+    """Offer one audio piece to the bounded playback queue.
+
+    Returns False when the producer should stop producing: either playback
+    was aborted, or the queue stayed full for ``timeout`` seconds, which
+    means the player loop is gone.  Keeps a dead consumer from wedging this
+    producer thread forever.
+    """
+
+    if aborted.is_set():
+        _note_stop(stop_logged)
+        return False
+    try:
+        pieces.put(piece, timeout=timeout)
+    except queue.Full:
+        _note_stop(stop_logged)
+        return False
+    if aborted.is_set():
+        _note_stop(stop_logged)
+        return False
+    return True
 
 
 class _WindowsSapiBackend:
@@ -206,8 +263,6 @@ class _RuntimeAssetsMixin:
     """Resolve paths for downloaded TTS assets under .runtime/tts."""
 
     def _tts_dir(self) -> Path:
-        from pathlib import Path
-
         directory = Path(__file__).resolve().parent / ".runtime" / "tts"
         directory.mkdir(parents=True, exist_ok=True)
         return directory
@@ -240,6 +295,7 @@ class _KokoroBackend(_RuntimeAssetsMixin):
         self._kokoro = Kokoro(str(model), str(voices), espeak_config=espeak)
         self._voice = voice_name or "af_heart"
         self._speed = max(0.5, min(2.0, int(rate) / 165.0))
+        self._aborted = threading.Event()
         print(f"Kokoro local voice ready: {self._voice}")
 
     def speak(self, message: str) -> None:
@@ -247,10 +303,13 @@ class _KokoroBackend(_RuntimeAssetsMixin):
         import io
         import queue
         import threading
-
-        import soundfile as sf
         import winsound
 
+        import soundfile as sf
+
+        aborted = self._aborted
+        aborted.clear()
+        stop_logged: list[bool] = [False]
         pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=2)
 
         def produce() -> None:
@@ -260,21 +319,35 @@ class _KokoroBackend(_RuntimeAssetsMixin):
                 ):
                     buffer = io.BytesIO()
                     sf.write(buffer, audio, sample_rate, format="WAV", subtype="PCM_16")
-                    pieces.put(buffer.getvalue())
+                    if not _offer_piece(
+                        pieces, aborted, stop_logged, buffer.getvalue()
+                    ):
+                        return
 
             try:
                 asyncio.run(run())
-            except Exception:
-                pass
+            except Exception as error:
+                print(
+                    f"Kokoro speech generation failed: {type(error).__name__}: {error}"
+                )
             finally:
-                pieces.put(None)
+                try:
+                    pieces.put_nowait(None)
+                except queue.Full:
+                    pass
 
         threading.Thread(target=produce, daemon=True).start()
-        while True:
-            piece = pieces.get()
-            if piece is None:
-                break
-            winsound.PlaySound(piece, winsound.SND_MEMORY)
+        # If playback dies below, this loop exits early; the daemon producer
+        # then exits on its next aborted or timed-out put instead of leaking.
+        try:
+            while True:
+                piece = pieces.get()
+                if piece is None:
+                    break
+                winsound.PlaySound(piece, winsound.SND_MEMORY)
+        except Exception as error:
+            aborted.set()
+            print(f"Audio playback error: {error}")
 
     def close(self) -> None:
         self._kokoro = None
@@ -307,19 +380,21 @@ class _PiperBackend(_RuntimeAssetsMixin):
         self._voice = PiperVoice.load(str(model))
         length_scale = 165.0 / max(80, int(rate))
         self._config = SynthesisConfig(length_scale=max(0.7, min(1.5, length_scale)))
+        self._aborted = threading.Event()
         print(f"Piper local voice ready: {model.stem}")
 
-    def _sentence_chunks(self, message: str) -> list[str]:
+    @staticmethod
+    def _sentence_chunks(message: str) -> list[str]:
         """Split on sentence ends, keeping abbreviations intact."""
-        import re
-
         parts = re.split(r"(?<=[.!?])\s+(?=[A-Z0-9\"'])", message.strip())
         abbrevations = {"Dr", "Mr", "Mrs", "Ms", "Prof", "St", "No", "vs", "e.g", "i.e"}
         merged: list[str] = []
         for part in parts:
             if merged:
                 previous = merged[-1].rstrip()[-10:]
-                defragment = re.search(r"(?:[A-Za-z]|\bAP|\bA)\.$", previous) or any(
+                # The word boundary keeps initials like "A." merged while real
+                # sentence words ending in a letter + "." still split apart.
+                defragment = re.search(r"(?:\b[A-Za-z]|\bAP|\bA)\.$", previous) or any(
                     previous.endswith(f"{word}.") for word in abbrevations
                 )
                 if defragment:
@@ -332,16 +407,19 @@ class _PiperBackend(_RuntimeAssetsMixin):
         import io
         import queue
         import threading
+        import winsound
 
         import numpy as np
         import soundfile as sf
-        import winsound
 
+        aborted = self._aborted
+        aborted.clear()
+        stop_logged: list[bool] = [False]
         pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=2)
 
         def produce() -> None:
             try:
-                for chunk in self._sentence_chunks(message):
+                for chunk in _PiperBackend._sentence_chunks(message):
                     rendered = [chunk_audio for chunk_audio in self._voice.synthesize(chunk, self._config)]
                     if not rendered:
                         continue
@@ -349,18 +427,30 @@ class _PiperBackend(_RuntimeAssetsMixin):
                     sample_rate = rendered[0].sample_rate
                     buffer = io.BytesIO()
                     sf.write(buffer, audio, int(sample_rate), format="WAV", subtype="PCM_16")
-                    pieces.put(buffer.getvalue())
-            except Exception:
-                pass
+                    if not _offer_piece(
+                        pieces, aborted, stop_logged, buffer.getvalue()
+                    ):
+                        return
+            except Exception as error:
+                print(f"Piper speech generation failed: {type(error).__name__}: {error}")
             finally:
-                pieces.put(None)
+                try:
+                    pieces.put_nowait(None)
+                except queue.Full:
+                    pass
 
         threading.Thread(target=produce, daemon=True).start()
-        while True:
-            piece = pieces.get()
-            if piece is None:
-                break
-            winsound.PlaySound(piece, winsound.SND_MEMORY)
+        # If playback dies below, this loop exits early; the daemon producer
+        # then exits on its next aborted or timed-out put instead of leaking.
+        try:
+            while True:
+                piece = pieces.get()
+                if piece is None:
+                    break
+                winsound.PlaySound(piece, winsound.SND_MEMORY)
+        except Exception as error:
+            aborted.set()
+            print(f"Audio playback error: {error}")
 
     def close(self) -> None:
         self._voice = None
@@ -380,11 +470,13 @@ def _default_backend_factory(
                 return _KokoroBackend(voice_name, rate)
             except Exception as error:
                 print(f"Kokoro unavailable ({type(error).__name__}); trying Piper, then system speech.")
+                _print_winsound_hint("Kokoro", error)
         if engine in ("kokoro", "piper"):
             try:
                 return _PiperBackend(rate)
             except Exception as error:
                 print(f"Piper unavailable ({type(error).__name__}); falling back to system speech.")
+                _print_winsound_hint("Piper", error)
         if os.name == "nt":
             return _WindowsSapiBackend(output_name, voice_name, rate, volume)
         return _Pyttsx3Backend(output_name, voice_name, rate, volume)

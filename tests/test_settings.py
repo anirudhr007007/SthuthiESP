@@ -115,6 +115,17 @@ class SettingsTests(unittest.TestCase):
             with self.subTest(value=value):
                 self.assertEqual(normalize_stt_provider(value), expected)
 
+    def test_web_search_defaults_off_and_environment_reenables_it(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.dict(os.environ, {"WEB_SEARCH": "true"}, clear=True):
+                settings = Settings.from_env(Path(directory), load_env=False)
+        self.assertTrue(settings.web_search)
+
+        with tempfile.TemporaryDirectory() as directory:
+            with patch.dict(os.environ, {}, clear=True):
+                defaults = Settings.from_env(Path(directory), load_env=False)
+        self.assertFalse(defaults.web_search)
+
     def test_out_of_range_thresholds_are_clamped(self):
         with tempfile.TemporaryDirectory() as directory:
             with patch.dict(

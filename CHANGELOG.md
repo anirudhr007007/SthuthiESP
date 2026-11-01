@@ -19,8 +19,8 @@ semantic versioning.
   on an HTTP rejection. NVIDIA is rate-limited like the other cloud providers
   and is probed by `--doctor`. Hosted NVIDIA speech is a separate
   streaming/gRPC service, so voice input remains local Whisper or Google STT.
-- `WEB_SEARCH` flag (default `true`) to opt out of the DuckDuckGo context
-  added for unmatched general questions, and `VOICE_DEBUG` (default `false`)
+- `WEB_SEARCH` flag to enable the DuckDuckGo context added for unmatched
+  general questions, and `VOICE_DEBUG` (default `false`)
   to gate the terminal printing of heard questions and answers.
 - `make_archive.ps1` to build a shareable source archive that never contains
   `.env`, `.venv`, `.runtime`, `.cache`, or biometric training images.
@@ -57,6 +57,9 @@ semantic versioning.
   generic no-answer fallback.
 - Voice listener status prints stay content-free; heard questions and answers
   appear in the terminal only with `VOICE_DEBUG=true`.
+- `WEB_SEARCH` now defaults to `false` for privacy: question text is no longer
+  sent to DuckDuckGo for unmatched general questions unless it is explicitly
+  re-enabled with `WEB_SEARCH=true`.
 
 ### Fixed
 

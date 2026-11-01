@@ -10,9 +10,11 @@ camera demo and ``--doctor`` before an event.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import threading
 import time
+import urllib.request
 from dataclasses import replace
 from pathlib import Path
 from typing import Any, Callable
@@ -498,17 +500,50 @@ def _apply_overrides(
     return settings, notes
 
 
+def _ollama_ping(settings: Settings) -> None:
+    """Send a minimal generation ping so Ollama pre-loads ``ollama_model``.
+
+    Raises on any failure (connection refused, timeout, HTTP error);
+    :func:`warm_up_models` turns the error into a best-effort skip message so
+    a missing Ollama daemon never blocks startup.
+    """
+
+    base_url = str(settings.ollama_url).strip().rstrip("/")
+    payload = json.dumps(
+        {
+            "model": settings.ollama_model,
+            "messages": [{"role": "user", "content": "ok"}],
+            "stream": False,
+            "think": False,
+            "keep_alive": "1h",
+            "options": {"num_predict": 1},
+        }
+    ).encode("utf-8")
+    timeout = min(30.0, max(10.0, float(settings.ai_timeout)))
+    request = urllib.request.Request(
+        f"{base_url}/api/chat",
+        data=payload,
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        response.read()
+
+
 def warm_up_models(
     settings: Settings,
     *,
     deepface_builder: Callable[[], Any] | None = None,
     whisper_builder: Callable[[], Any] | None = None,
+    ollama_pinger: Callable[[Settings], None] | None = None,
 ) -> int:
-    """Load the configured face and speech models so caches are warm.
+    """Load the configured face, speech, and answer models so caches are warm.
 
     This deliberately has no camera or microphone dependency.  The face model
     is built by DeepFace itself, which downloads official weights on the first
-    run and reuses the project-local cache afterwards.
+    run and reuses the project-local cache afterwards.  For Ollama, a minimal
+    generation ping keeps the configured chat model loaded (``keep_alive``) so
+    the first question does not stall while the model loads.
     """
 
     try:
@@ -545,6 +580,19 @@ def warm_up_models(
             return 1
     else:
         print("Whisper model skipped: STT_PROVIDER is not whisper.")
+
+    pinger = ollama_pinger if ollama_pinger is not None else _ollama_ping
+    if settings.ai_provider == "ollama":
+        try:
+            pinger(settings)
+        except Exception as error:
+            print(f"Ollama warm-up skipped: {error}")
+        else:
+            print(
+                f"Ollama model ready: {settings.ollama_model} (kept warm for 1 hour)"
+            )
+    else:
+        print("Ollama warm-up skipped: AI_PROVIDER is not ollama.")
 
     print("Model warm-up complete. All caches stay under .runtime.")
     return 0

@@ -338,7 +338,7 @@ class Settings:
             provider_probe_timeout=max(
                 0.5, _env_float("PROVIDER_PROBE_TIMEOUT", 3.0)
             ),
-            web_search=_env_bool("WEB_SEARCH", True),
+            web_search=_env_bool("WEB_SEARCH", False),
         )
 
     def describe(self) -> dict[str, str]:

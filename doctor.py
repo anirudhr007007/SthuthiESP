@@ -556,6 +556,47 @@ def _check_provider(settings: Settings) -> CheckResult:
     return CheckResult(level, "Answer provider", f"{status.provider}: {status.detail}")
 
 
+def _check_ollama_model(settings: Settings) -> CheckResult:
+    """Verify that Ollama serves the configured model (local request only)."""
+
+    provider = str(getattr(settings, "ai_provider", "") or "").strip().lower()
+    if provider != "ollama":
+        return CheckResult("SKIP", "Ollama model", "AI_PROVIDER is not ollama")
+    model = str(getattr(settings, "ollama_model", "") or "").strip()
+    try:
+        status = probe_provider(settings, network=False)
+    except Exception as error:
+        return CheckResult("WARN", "Ollama model", f"probe failed: {error}")
+    if status.available:
+        return CheckResult(
+            "OK",
+            "Ollama model",
+            f"model '{model}' is served by Ollama ({status.detail})",
+        )
+    return CheckResult(
+        "FAIL",
+        "Ollama model",
+        f"{status.detail}; run `ollama serve` and `ollama pull {model}` "
+        "before the demo",
+    )
+
+
+def _check_web_search(settings: Settings) -> CheckResult:
+    """Verify the optional web-search dependency without a network request."""
+
+    if not bool(getattr(settings, "web_search", False)):
+        return CheckResult("SKIP", "Web search", "WEB_SEARCH is not enabled")
+    if _module_available("ddgs"):
+        return CheckResult("OK", "Web search", "ddgs installed")
+    return CheckResult(
+        "WARN",
+        "Web search",
+        "WEB_SEARCH=true but the ddgs package is missing; unmatched questions "
+        "will answer without snippets. Install requirements-cloud.txt or set "
+        "WEB_SEARCH=false.",
+    )
+
+
 def run_doctor(settings: Settings, facts: list[dict[str, Any]] | None = None) -> int:
     """Print diagnostics and return nonzero only for blocking failures."""
 
@@ -573,6 +614,8 @@ def run_doctor(settings: Settings, facts: list[dict[str, Any]] | None = None) ->
     results.append(_probe_camera(settings))
     results.append(_check_microphone(settings))
     results.append(_check_provider(settings))
+    results.append(_check_ollama_model(settings))
+    results.append(_check_web_search(settings))
 
     print("\nDiagnostics")
     print("----------")

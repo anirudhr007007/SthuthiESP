@@ -27,8 +27,8 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from settings import Settings
 import semantic_retrieval
+from settings import Settings
 
 
 class AIProviderError(RuntimeError):
@@ -46,12 +46,15 @@ class AnswerResult:
     ``source`` is one of ``verified_faq``, ``college_fallback``,
     ``offline_fallback``, ``provider``, or ``provider_fallback``.  It never
     contains the question text, and ``provider`` is a provider label rather
-    than a credential.
+    than a credential. ``web_used`` reports whether a web search contributed
+    context to a provider answer, so callers can tell when question text may
+    have been sent off-machine.
     """
 
     text: str
     source: str
     provider: str | None = None
+    web_used: bool = False
 
 
 MAX_OUTPUT_TOKENS = 180
@@ -61,6 +64,10 @@ MAX_CONTEXT_CHARS = 6000
 MAX_CONTEXT_FACTS = 8
 MAX_QUESTION_CHARS = 1200
 RATE_LIMIT_WINDOW_SECONDS = 3600.0
+
+# Printed at most once per process when a web search cannot be performed, so
+# a repeatedly failing search never floods the kiosk terminal.
+_web_search_unavailable_printed = False
 
 _PLACEHOLDER_VALUES = {
     "n/a",
@@ -1029,10 +1036,10 @@ def _offline_answer_result(
         )
     college_name = getattr(settings, "college_name", "")
     if is_college_specific_question(question, college_name):
-        relevant = select_relevant_facts(question, facts)
-        if relevant:
+        semantic_match = semantic_retrieval.is_unambiguous(question, facts)
+        if semantic_match is not None:
             return AnswerResult(
-                _bounded_answer(relevant[0]["answer"]),
+                _bounded_answer(semantic_match["answer"]),
                 "verified_faq",
             )
         return AnswerResult(_COLLEGE_FALLBACK, "college_fallback")
@@ -1085,7 +1092,14 @@ def _search_web_context(question: str, settings: Settings) -> str:
         from ddgs import DDGS
 
         results = DDGS(timeout=2).text(question[:MAX_QUESTION_CHARS], max_results=3)
-    except Exception:
+    except Exception as error:
+        global _web_search_unavailable_printed
+        if not _web_search_unavailable_printed:
+            print(
+                f"Web search unavailable ({type(error).__name__}); unmatched "
+                "questions will use verified facts and the model only."
+            )
+            _web_search_unavailable_printed = True
         return ""
     snippets = []
     for item in results or []:
@@ -1693,14 +1707,21 @@ def answer_question_result(
             text = _ask_compatible(question_text, settings, prompt)
         else:
             raise AIProviderError("unknown provider", code="configuration")
-        return AnswerResult(_bounded_answer(text), "provider", provider)
+        return AnswerResult(
+            _bounded_answer(text), "provider", provider, web_used=bool(web_context.strip())
+        )
     except Exception as error:
         print(
             f"AI provider '{_provider_label(provider)}' unavailable "
             f"({_error_category(error)}); using safe offline answer."
         )
         fallback = _offline_answer_result(question_text, settings, verified_facts)
-        return AnswerResult(fallback.text, "provider_fallback", provider)
+        return AnswerResult(
+            fallback.text,
+            "provider_fallback",
+            provider,
+            web_used=bool(web_context.strip()),
+        )
 
 
 def answer_question(question: str, settings: Settings, facts: list[dict[str, Any]]) -> str:

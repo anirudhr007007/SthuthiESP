@@ -1,16 +1,19 @@
 import argparse
 import contextlib
 import io
+import json
 import os
 import tempfile
 import unittest
 from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import URLError
 
 from app import (
     _apply_overrides,
     _display_text,
+    _ollama_ping,
     _wrap_text,
     run_chat,
     warm_up_models,
@@ -153,9 +156,10 @@ class ModelWarmupTests(unittest.TestCase):
             code = warm_up_models(
                 make_settings(),
                 deepface_builder=lambda: calls.append("face"),
+                ollama_pinger=lambda _settings: calls.append("ollama"),
             )
         self.assertEqual(code, 0)
-        self.assertEqual(calls, ["face"])
+        self.assertEqual(calls, ["face", "ollama"])
         self.assertIn("Face model ready", output.getvalue())
         self.assertIn("Whisper model skipped", output.getvalue())
 
@@ -167,9 +171,10 @@ class ModelWarmupTests(unittest.TestCase):
                 settings,
                 deepface_builder=lambda: calls.append("face"),
                 whisper_builder=lambda: calls.append("whisper"),
+                ollama_pinger=lambda _settings: calls.append("ollama"),
             )
         self.assertEqual(code, 0)
-        self.assertEqual(calls, ["face", "whisper"])
+        self.assertEqual(calls, ["face", "whisper", "ollama"])
 
     def test_warmup_failure_is_reported_without_leaking_details(self):
         def fail():
@@ -177,9 +182,130 @@ class ModelWarmupTests(unittest.TestCase):
 
         output = io.StringIO()
         with contextlib.redirect_stdout(output):
-            code = warm_up_models(make_settings(), deepface_builder=fail)
+            code = warm_up_models(
+                make_settings(),
+                deepface_builder=fail,
+                ollama_pinger=lambda _settings: None,
+            )
         self.assertEqual(code, 1)
         self.assertIn("Face model warm-up failed", output.getvalue())
+
+
+class OllamaWarmupTests(unittest.TestCase):
+    def test_ollama_pinger_runs_for_ollama_provider(self):
+        # Settings defaults AI_PROVIDER to ollama.
+        calls = []
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = warm_up_models(
+                make_settings(),
+                deepface_builder=lambda: calls.append("face"),
+                ollama_pinger=lambda _settings: calls.append("ping"),
+            )
+        self.assertEqual(code, 0)
+        self.assertEqual(calls, ["face", "ping"])
+        self.assertIn("Ollama model ready:", output.getvalue())
+        self.assertIn("(kept warm for 1 hour)", output.getvalue())
+        self.assertIn("Model warm-up complete", output.getvalue())
+
+    def test_ollama_pinger_is_skipped_for_other_providers(self):
+        calls = []
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = warm_up_models(
+                replace(make_settings(), ai_provider="offline"),
+                deepface_builder=lambda: calls.append("face"),
+                ollama_pinger=lambda _settings: calls.append("ping"),
+            )
+        self.assertEqual(code, 0)
+        self.assertEqual(calls, ["face"])
+        self.assertIn(
+            "Ollama warm-up skipped: AI_PROVIDER is not ollama.",
+            output.getvalue(),
+        )
+
+    def test_ollama_pinger_failure_does_not_fail_the_run(self):
+        def fail(_settings):
+            raise RuntimeError("Ollama is not reachable")
+
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            code = warm_up_models(
+                make_settings(),
+                deepface_builder=lambda: None,
+                ollama_pinger=fail,
+            )
+        self.assertEqual(code, 0)
+        self.assertIn("Ollama warm-up skipped:", output.getvalue())
+        self.assertIn("Model warm-up complete", output.getvalue())
+
+    def test_ollama_ping_sends_minimal_chat_request(self):
+        captured = {}
+
+        class FakeResponse:
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return False
+
+            def read(self):
+                return b"{}"
+
+        def fake_urlopen(request, timeout):
+            captured["url"] = request.full_url
+            captured["payload"] = json.loads(request.data.decode("utf-8"))
+            captured["timeout"] = timeout
+            return FakeResponse()
+
+        settings = replace(
+            make_settings(),
+            ollama_url="http://127.0.0.1:11434/",
+            ai_timeout=1.0,
+        )
+        with patch("urllib.request.urlopen", side_effect=fake_urlopen):
+            _ollama_ping(settings)
+        self.assertEqual(captured["url"], "http://127.0.0.1:11434/api/chat")
+        self.assertEqual(captured["timeout"], 10.0)
+        self.assertEqual(
+            captured["payload"],
+            {
+                "model": settings.ollama_model,
+                "messages": [{"role": "user", "content": "ok"}],
+                "stream": False,
+                "think": False,
+                "keep_alive": "1h",
+                "options": {"num_predict": 1},
+            },
+        )
+
+    def test_ollama_ping_failure_is_wrapped_into_a_skip_message(self):
+        settings = replace(
+            make_settings(),
+            ollama_url="http://127.0.0.1:1",  # unreachable loopback port
+        )
+        output = io.StringIO()
+        with patch(
+            "urllib.request.urlopen",
+            side_effect=URLError("connection refused"),
+        ), contextlib.redirect_stdout(output):
+            code = warm_up_models(settings, deepface_builder=lambda: None)
+        self.assertEqual(code, 0)
+        self.assertIn("Ollama warm-up skipped:", output.getvalue())
+        self.assertIn("connection refused", output.getvalue())
+        self.assertIn("Model warm-up complete", output.getvalue())
+
+    def test_real_ollama_ping_raises_for_a_dead_url(self):
+        settings = replace(
+            make_settings(),
+            ollama_url="http://127.0.0.1:1",  # unreachable loopback port
+        )
+        with patch(
+            "urllib.request.urlopen",
+            side_effect=URLError("connection refused"),
+        ):
+            with self.assertRaises(URLError):
+                _ollama_ping(settings)
 
 
 class DisplayTextTests(unittest.TestCase):

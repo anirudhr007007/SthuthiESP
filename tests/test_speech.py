@@ -1,9 +1,18 @@
+import contextlib
+import io
+import queue
+import sys
 import threading
 import time
+import types
 import unittest
+from unittest import mock
 
 from speech_service import (
     SpeechService,
+    _KokoroBackend,
+    _offer_piece,
+    _PiperBackend,
     _sapi_rate,
     looks_like_echo,
     text_similarity,
@@ -26,6 +35,16 @@ class RecordingBackend:
 
     def close(self) -> None:
         self.closed = True
+
+
+class SilentBackend:
+    """Backend whose speak() does nothing; the service must keep working."""
+
+    def speak(self, message: str) -> None:
+        pass
+
+    def close(self) -> None:
+        pass
 
 
 class EchoDetectionTests(unittest.TestCase):
@@ -139,6 +158,23 @@ class SpeechServiceTests(unittest.TestCase):
         finally:
             service.stop()
 
+    def test_service_keeps_working_when_backend_speak_does_nothing(self):
+        backend = SilentBackend()
+        service = SpeechService(
+            enabled=True,
+            backend_factory=lambda: backend,
+            idle_grace=0.0,
+        )
+        try:
+            self.assertTrue(service.speak("Nothing plays here."))
+            self.assertTrue(service.wait_until_idle(timeout=2.0))
+            self.assertTrue(service.available)
+            self.assertTrue(service.speak("Still accepting messages."))
+            self.assertTrue(service.wait_until_idle(timeout=2.0))
+            self.assertEqual(service.queue_size, 0)
+        finally:
+            service.stop()
+
     def test_disabled_service_does_not_queue_or_start(self):
         service = SpeechService(enabled=False)
         self.assertFalse(service.speak("Hello"))
@@ -163,6 +199,223 @@ class SpeechServiceTests(unittest.TestCase):
         finally:
             backend.release.set()
             service.stop()
+
+
+class _FailingKokoro:
+    def create_stream(self, *args, **kwargs):
+        raise RuntimeError("stream exploded")
+
+
+class _FailingPiperVoice:
+    def synthesize(self, chunk, config):
+        raise RuntimeError("synthesis exploded")
+
+
+def _fake_audio_modules(*, playback_fails: bool):
+    """Build fake numpy/soundfile/winsound modules for producer tests.
+
+    The backends import these inside speak(), so swapping them via
+    sys.modules keeps the tests offline (no real audio or numpy needed).
+    Returns (modules, list of played sound buffers).
+    """
+
+    played: list[bytes] = []
+
+    winsound = types.ModuleType("winsound")
+    winsound.SND_MEMORY = 2
+
+    def play_sound(sound, flags):
+        played.append(sound)
+        if playback_fails:
+            raise RuntimeError("audio device is wedged")
+
+    winsound.PlaySound = play_sound
+
+    numpy = types.ModuleType("numpy")
+    numpy.concatenate = lambda parts: parts[0]
+
+    soundfile = types.ModuleType("soundfile")
+    soundfile.write = lambda buffer, data, sample_rate, **kwargs: buffer.write(
+        b"fake-wav-bytes"
+    )
+    return {"numpy": numpy, "soundfile": soundfile, "winsound": winsound}, played
+
+
+class SentenceChunkTests(unittest.TestCase):
+    def test_abbreviations_do_not_split(self):
+        self.assertEqual(
+            _PiperBackend._sentence_chunks(
+                "Dr. Smith met Mr. Lee at 9 a.m. and No. 42 left."
+            ),
+            ["Dr. Smith met Mr. Lee at 9 a.m. and No. 42 left."],
+        )
+
+    def test_single_letter_periods_do_not_split(self):
+        self.assertEqual(
+            _PiperBackend._sentence_chunks("A. B. C. continued anyway."),
+            ["A. B. C. continued anyway."],
+        )
+
+    def test_normal_sentences_split(self):
+        self.assertEqual(
+            _PiperBackend._sentence_chunks("First. Second."),
+            ["First.", "Second."],
+        )
+        self.assertEqual(
+            _PiperBackend._sentence_chunks("What now? Go fast!"),
+            ["What now?", "Go fast!"],
+        )
+
+    def test_empty_and_whitespace_input_return_no_chunks(self):
+        self.assertEqual(_PiperBackend._sentence_chunks(""), [])
+        self.assertEqual(_PiperBackend._sentence_chunks("   \n\t "), [])
+
+
+class OfferPieceTests(unittest.TestCase):
+    def test_aborted_event_stops_producing_and_logs_once(self):
+        pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=1)
+        aborted = threading.Event()
+        aborted.set()
+        stop_logged = [False]
+        with contextlib.redirect_stdout(io.StringIO()) as captured:
+            first = _offer_piece(pieces, aborted, stop_logged, b"chunk", timeout=0.05)
+            second = _offer_piece(pieces, aborted, stop_logged, b"chunk", timeout=0.05)
+        self.assertFalse(first)
+        self.assertFalse(second)
+        self.assertTrue(stop_logged[0])
+        self.assertEqual(captured.getvalue().count("stops producing"), 1)
+
+    def test_full_queue_timeout_stops_producing(self):
+        pieces: queue.Queue[bytes | None] = queue.Queue(maxsize=1)
+        pieces.put(b"stuck")
+        stop_logged = [False]
+        with contextlib.redirect_stdout(io.StringIO()) as captured:
+            offered = _offer_piece(
+                pieces, threading.Event(), stop_logged, b"chunk", timeout=0.05
+            )
+        self.assertFalse(offered)
+        self.assertTrue(stop_logged[0])
+        self.assertIn("stops producing", captured.getvalue())
+
+    def test_successful_offer_keeps_producing(self):
+        pieces: queue.Queue[bytes | None] = queue.Queue()
+        stop_logged = [False]
+        self.assertTrue(
+            _offer_piece(pieces, threading.Event(), stop_logged, b"chunk", timeout=0.05)
+        )
+        self.assertFalse(stop_logged[0])
+        self.assertEqual(pieces.get_nowait(), b"chunk")
+
+
+class KokoroProducerTests(unittest.TestCase):
+    def _backend(self, kokoro):
+        backend = _KokoroBackend.__new__(_KokoroBackend)
+        backend._kokoro = kokoro
+        backend._voice = "af_heart"
+        backend._speed = 1.0
+        backend._aborted = threading.Event()
+        return backend
+
+    def test_generation_failure_is_logged_once_and_nothing_plays(self):
+        backend = self._backend(_FailingKokoro())
+        with mock.patch("winsound.PlaySound") as play:
+            with contextlib.redirect_stdout(io.StringIO()) as captured:
+                backend.speak("Hello. World.")
+        play.assert_not_called()
+        output = captured.getvalue()
+        self.assertEqual(output.count("Kokoro speech generation failed"), 1)
+        self.assertIn("RuntimeError: stream exploded", output)
+
+    def test_playback_error_breaks_loop_and_sets_aborted(self):
+        class _PlaceholderVoice:
+            sample_rate = 24_000
+
+            @staticmethod
+            def create_stream(text, voice, speed):
+                async def stream():
+                    yield [0.0, 0.01, -0.01], _PlaceholderVoice.sample_rate
+
+                return stream()
+
+        backend = self._backend(_PlaceholderVoice())
+        fakes, played = _fake_audio_modules(playback_fails=True)
+        with mock.patch.dict(sys.modules, fakes):
+            with contextlib.redirect_stdout(io.StringIO()) as captured:
+                backend.speak("Hello.")
+        self.assertTrue(backend._aborted.is_set())
+        self.assertEqual(len(played), 1)
+        self.assertIn("Audio playback error:", captured.getvalue())
+
+
+class PiperProducerTests(unittest.TestCase):
+    def _backend(self, voice):
+        backend = _PiperBackend.__new__(_PiperBackend)
+        backend._voice = voice
+        backend._config = None
+        backend._aborted = threading.Event()
+        return backend
+
+    def test_generation_failure_is_logged_once_and_nothing_plays(self):
+        backend = self._backend(_FailingPiperVoice())
+        with mock.patch("winsound.PlaySound") as play:
+            with contextlib.redirect_stdout(io.StringIO()) as captured:
+                backend.speak("Hello. World.")
+        play.assert_not_called()
+        output = captured.getvalue()
+        self.assertEqual(output.count("Piper speech generation failed"), 1)
+        self.assertIn("RuntimeError: synthesis exploded", output)
+
+    def test_playback_error_breaks_loop_and_sets_aborted(self):
+        class _SingleChunkVoice:
+            def synthesize(self, chunk, config):
+                # One valid chunk per sentence; renderers skip empty output.
+                yield types.SimpleNamespace(
+                    audio_float_array=[0.0, 0.5, -0.5],
+                    sample_rate=22_050,
+                )
+
+        backend = self._backend(_SingleChunkVoice())
+        fakes, played = _fake_audio_modules(playback_fails=True)
+        with mock.patch.dict(sys.modules, fakes):
+            with contextlib.redirect_stdout(io.StringIO()) as captured:
+                backend.speak("Hello.")
+        self.assertTrue(backend._aborted.is_set())
+        self.assertEqual(len(played), 1)
+        self.assertIn("Audio playback error:", captured.getvalue())
+
+
+class DefaultBackendFactoryTests(unittest.TestCase):
+    def test_broken_kokoro_and_piper_fall_back_to_sapi_with_winsound_hint(self):
+        import speech_service
+
+        class _BrokenBackend:
+            def __init__(self, *args, **kwargs):
+                raise ModuleNotFoundError("No module named 'winsound'")
+
+        class _FakeSapi:
+            def __init__(self, output_name, voice_name, rate, volume):
+                self.output_name = output_name
+
+        fake_os = types.SimpleNamespace(name="nt")
+        factory = speech_service._default_backend_factory("", "", 165, 1.0, "kokoro")
+        with mock.patch.object(speech_service, "_KokoroBackend", _BrokenBackend):
+            with mock.patch.object(speech_service, "_PiperBackend", _BrokenBackend):
+                with mock.patch.object(speech_service, "_WindowsSapiBackend", _FakeSapi):
+                    with mock.patch.object(speech_service, "os", fake_os):
+                        with mock.patch.object(
+                            speech_service, "_winsound_hinted", set()
+                        ):
+                            with contextlib.redirect_stdout(io.StringIO()) as captured:
+                                backend = factory()
+        self.assertIsInstance(backend, _FakeSapi)
+        output = captured.getvalue()
+        self.assertIn("Kokoro unavailable (ModuleNotFoundError);", output)
+        self.assertIn("Piper unavailable (ModuleNotFoundError);", output)
+        self.assertEqual(
+            output.count("uses winsound, which is Windows-only in this build"), 2
+        )
+        self.assertEqual(output.count("note: Kokoro audio playback"), 1)
+        self.assertEqual(output.count("note: Piper audio playback"), 1)
 
 
 if __name__ == "__main__":

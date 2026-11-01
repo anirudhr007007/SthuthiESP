@@ -25,6 +25,7 @@ def make_settings(**overrides):
         "ai_api_key": "",
         "ai_model": "",
         "college_name": "Configured college",
+        "web_search": False,
         "cloud_min_interval": 0.0,
         "cloud_max_calls_per_hour": 0,
         "provider_probe_timeout": 1.0,
@@ -888,6 +889,107 @@ class NvidiaProviderTests(unittest.TestCase):
             self.assertTrue(second.startswith("I do not have"))
         finally:
             ai_provider.reset_rate_limits()
+
+
+class OfflineAndWebRoutingTests(unittest.TestCase):
+    def setUp(self):
+        ai_provider._web_search_unavailable_printed = False
+
+    def tearDown(self):
+        ai_provider._web_search_unavailable_printed = False
+
+    def test_strict_verified_match_still_answers_offline(self):
+        facts = [fact(aliases=["Tell me about this verified feature"])]
+        settings = make_settings(ai_provider="offline")
+        result = ai_provider.answer_question_result(
+            "Tell me about this verified feature", settings, facts
+        )
+        self.assertEqual(result.text, "I can answer this verified question.")
+        self.assertEqual(result.source, "verified_faq")
+        self.assertFalse(result.web_used)
+
+    def test_offline_college_question_with_weak_overlap_falls_back(self):
+        facts = [
+            fact(
+                question="What are the fees for the library late return?",
+                answer="The library late return fee is ten rupees.",
+            ),
+        ]
+        settings = make_settings(ai_provider="offline")
+        result = ai_provider.answer_question_result(
+            "What are the admission fees for joining the college?", settings, facts
+        )
+        self.assertEqual(result.source, "college_fallback")
+        self.assertEqual(result.text, ai_provider._COLLEGE_FALLBACK)
+        self.assertNotIn("library", result.text.lower())
+
+    def test_offline_general_question_uses_offline_fallback(self):
+        settings = make_settings(ai_provider="offline")
+        result = ai_provider.answer_question_result(
+            "What is photosynthesis?", settings, []
+        )
+        self.assertEqual(result.source, "offline_fallback")
+        self.assertFalse(result.web_used)
+
+    def test_web_search_disabled_returns_empty_without_printing(self):
+        settings = make_settings(web_search=False)
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(ai_provider._search_web_context("some question", settings), "")
+        self.assertEqual(output.getvalue(), "")
+
+    def test_web_search_unavailable_prints_once_and_returns_empty(self):
+        settings = make_settings(web_search=True)
+        with patch.dict(sys.modules, {"ddgs": None}):
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                self.assertEqual(ai_provider._search_web_context("some question", settings), "")
+                self.assertEqual(ai_provider._search_web_context("some question", settings), "")
+
+        value = output.getvalue()
+        self.assertEqual(value.count("Web search unavailable"), 1)
+        self.assertIn(
+            "Web search unavailable (ModuleNotFoundError); unmatched questions "
+            "will use verified facts and the model only.",
+            value,
+        )
+
+    def test_provider_answer_reports_web_used_true(self):
+        settings = make_settings(ai_provider="ollama", web_search=True)
+        with patch.object(ai_provider, "_search_web_context", return_value="snippet\nSource: x"):
+            with patch.object(ai_provider, "_ask_ollama", return_value="model answer"):
+                result = ai_provider.answer_question_result(
+                    "What is photosynthesis?", settings, []
+                )
+        self.assertEqual(result.source, "provider")
+        self.assertEqual(result.provider, "ollama")
+        self.assertTrue(result.web_used)
+
+    def test_provider_failure_with_web_context_is_flagged_and_falls_back(self):
+        facts = [
+            fact(
+                question="Does MCE have a library?",
+                answer="Yes, MCE has a library.",
+            ),
+        ]
+        settings = make_settings(ai_provider="ollama", web_search=True)
+        with patch.object(ai_provider, "_search_web_context", return_value="snippet\nSource: x"):
+            with patch.object(
+                ai_provider,
+                "_ask_ollama",
+                side_effect=ai_provider.AIProviderError("unavailable", code="network"),
+            ):
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    result = ai_provider.answer_question_result(
+                        "What is photosynthesis?", settings, facts
+                    )
+        self.assertEqual(result.source, "provider_fallback")
+        self.assertEqual(result.provider, "ollama")
+        self.assertTrue(result.web_used)
+        self.assertEqual(result.text, ai_provider._GENERAL_OFFLINE_FALLBACK)
+        self.assertNotIn("library", result.text.lower())
+        self.assertNotIn("What is photosynthesis?", output.getvalue())
 
 
 if __name__ == "__main__":

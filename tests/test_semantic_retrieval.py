@@ -38,8 +38,8 @@ class ScoringTests(unittest.TestCase):
         library = fact("Does MCE have a library?", keywords=["library"])
         idf = sr._idf_table([principal, library])
         p = sr.score_fact("who runs the mce campus as principal", principal, idf)
-        l = sr.score_fact("who runs the mce campus as principal", library, idf)
-        self.assertGreater(p, l)
+        low = sr.score_fact("who runs the mce campus as principal", library, idf)
+        self.assertGreater(p, low)
 
     def test_generic_overlap_only_scores_low(self):
         a = fact("What is the college address?", answer="addr")
@@ -73,7 +73,7 @@ class RankingTests(unittest.TestCase):
 
 class EmptyInputTests(unittest.TestCase):
     def test_empty_question_returns_none(self):
-        self.assertEqual(sr.best_fact_confidence("", self_facts := []), (0.0, None))
+        self.assertEqual(sr.best_fact_confidence("", []), (0.0, None))
         self.assertEqual(sr.best_fact_confidence("   ", []), (0.0, None))
 
     def test_no_facts_returns_none(self):

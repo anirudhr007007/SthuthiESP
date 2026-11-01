@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 import doctor
-from ai_provider import load_knowledge
+from ai_provider import ProviderStatus, load_knowledge
 from enrollment import save_embedding_cache
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -300,6 +300,86 @@ class PythonCheckTests(unittest.TestCase):
         self.assertEqual(results[0].name, "Python")
         self.assertIn(results[0].level, {"OK", "WARN"})
         self.assertIn("Python", results[0].detail)
+
+
+class OllamaModelCheckTests(unittest.TestCase):
+    def test_unreachable_ollama_fails_with_actionable_message(self):
+        settings = types.SimpleNamespace(
+            ai_provider="ollama",
+            ollama_model="llama3.2:3b",
+        )
+        with patch(
+            "doctor.probe_provider",
+            return_value=ProviderStatus(
+                "ollama", False, "Ollama is not reachable (connection refused)"
+            ),
+        ):
+            result = doctor._check_ollama_model(settings)
+        self.assertEqual(result.level, "FAIL")
+        self.assertEqual(result.name, "Ollama model")
+        self.assertIn("ollama serve", result.detail)
+        self.assertIn("ollama pull llama3.2:3b", result.detail)
+
+    def test_available_ollama_passes_with_the_model_name(self):
+        settings = types.SimpleNamespace(
+            ai_provider="ollama",
+            ollama_model="llama3.2:3b",
+        )
+        with patch(
+            "doctor.probe_provider",
+            return_value=ProviderStatus(
+                "ollama", True, "Ollama reachable with 2 model(s)"
+            ),
+        ):
+            result = doctor._check_ollama_model(settings)
+        self.assertEqual(result.level, "OK")
+        self.assertIn("llama3.2:3b", result.detail)
+        self.assertIn("2 model(s)", result.detail)
+
+    def test_non_ollama_provider_is_skipped(self):
+        settings = types.SimpleNamespace(
+            ai_provider="gemini",
+            ollama_model="llama3.2:3b",
+        )
+        with patch("doctor.probe_provider") as fake_probe:
+            result = doctor._check_ollama_model(settings)
+        self.assertEqual(result.level, "SKIP")
+        self.assertEqual(result.detail, "AI_PROVIDER is not ollama")
+        fake_probe.assert_not_called()
+
+    def test_probe_exception_reports_a_warning(self):
+        settings = types.SimpleNamespace(
+            ai_provider="ollama",
+            ollama_model="llama3.2:3b",
+        )
+        with patch("doctor.probe_provider", side_effect=RuntimeError("boom")):
+            result = doctor._check_ollama_model(settings)
+        self.assertEqual(result.level, "WARN")
+        self.assertIn("probe failed", result.detail)
+
+
+class WebSearchCheckTests(unittest.TestCase):
+    def test_disabled_web_search_is_skipped(self):
+        settings = types.SimpleNamespace(web_search=False)
+        result = doctor._check_web_search(settings)
+        self.assertEqual(result.level, "SKIP")
+        self.assertEqual(result.name, "Web search")
+
+    def test_missing_ddgs_package_warns_with_install_hint(self):
+        settings = types.SimpleNamespace(web_search=True)
+        with patch("doctor._module_available", return_value=False):
+            result = doctor._check_web_search(settings)
+        self.assertEqual(result.level, "WARN")
+        self.assertIn("ddgs package is missing", result.detail)
+        self.assertIn("Install requirements-cloud.txt", result.detail)
+        self.assertIn("WEB_SEARCH=false", result.detail)
+
+    def test_installed_ddgs_package_passes(self):
+        settings = types.SimpleNamespace(web_search=True)
+        with patch("doctor._module_available", return_value=True):
+            result = doctor._check_web_search(settings)
+        self.assertEqual(result.level, "OK")
+        self.assertEqual(result.detail, "ddgs installed")
 
 
 if __name__ == "__main__":
