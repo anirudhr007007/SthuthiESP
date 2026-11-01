@@ -28,6 +28,7 @@ from urllib.parse import quote, urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from settings import Settings
+import semantic_retrieval
 
 
 class AIProviderError(RuntimeError):
@@ -1366,8 +1367,8 @@ def _ask_nvidia(question: str, settings: Settings, system_prompt: str) -> str:
 
     NVIDIA NIM exposes an OpenAI-compatible ``/chat/completions`` endpoint at
     ``https://integrate.api.nvidia.com/v1``.  The key belongs in ``AI_API_KEY``
-    and the model id (for example ``z-ai/glm-5.3-flash`` or
-    ``meta/llama-3.3-70b-instruct``) belongs in ``AI_MODEL``.
+    and a build.nvidia.com model id (for example
+    ``nvidia/nemotron-3.5-lightning-30b-a3b``) belongs in ``AI_MODEL``.
     """
 
     api_key = str(_provider_setting(settings, "ai_api_key", "")).strip()
@@ -1391,24 +1392,39 @@ def _ask_nvidia(question: str, settings: Settings, system_prompt: str) -> str:
         if base_url.endswith("/chat/completions")
         else f"{base_url}/chat/completions"
     )
-    response = _post_json(
-        endpoint,
-        {
-            "model": model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": question[:MAX_QUESTION_CHARS]},
-            ],
-            "temperature": 0.2,
-            "max_tokens": MAX_OUTPUT_TOKENS,
-            "stream": False,
-        },
-        {
-            "Authorization": f"Bearer {api_key}",
-            "User-Agent": f"espsthuthi2/{getattr(settings, 'project_version', '2.0.0')}",
-        },
-        float(_provider_setting(settings, "ai_timeout", 15.0)),
-    )
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "User-Agent": f"espsthuthi2/{getattr(settings, 'project_version', '2.0.0')}",
+    }
+    timeout = float(_provider_setting(settings, "ai_timeout", 15.0))
+    payload: dict[str, Any] = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": question[:MAX_QUESTION_CHARS]},
+        ],
+        "temperature": 0.2,
+        "max_tokens": MAX_OUTPUT_TOKENS,
+        "stream": False,
+        # Reasoning models (Nemotron family and similar) spend the completion
+        # budget on an invisible reasoning channel first, which yields an empty
+        # ``content`` for short kiosk answers. Disabling thinking keeps replies
+        # bounded and fast. Templates that ignore the kwarg are unaffected.
+        "chat_template_kwargs": {"thinking": False},
+    }
+    try:
+        response = _post_json(endpoint, payload, headers, timeout)
+    except AIProviderError as error:
+        if error.code != "http":
+            raise
+        # One plain retry for gateways that reject the extra kwarg; timeouts
+        # and network failures are never retried.
+        plain = {
+            name: value
+            for name, value in payload.items()
+            if name != "chat_template_kwargs"
+        }
+        response = _post_json(endpoint, plain, headers, timeout)
     try:
         choice = response["choices"][0]
         message = choice["message"]
@@ -1638,10 +1654,16 @@ def answer_question_result(
 
     college_name = str(getattr(settings, "college_name", ""))
     is_college = is_college_specific_question(question_text, college_name)
-    relevant = select_relevant_facts(question_text, verified_facts) if is_college else []
-
-    if is_college and relevant:
-        return AnswerResult(_bounded_answer(relevant[0]["answer"]), "verified_faq")
+    # Use the separate weighted retriever only for confident, unambiguous
+    # college FAQ matches. Weak/near-tied matches must continue to the model
+    # and web search instead of being presented as verified answers.
+    semantic_match = (
+        semantic_retrieval.is_unambiguous(question_text, verified_facts)
+        if is_college
+        else None
+    )
+    if semantic_match is not None:
+        return AnswerResult(_bounded_answer(semantic_match["answer"]), "verified_faq")
 
     if is_offline_provider:
         return _offline_answer_result(question_text, settings, verified_facts)

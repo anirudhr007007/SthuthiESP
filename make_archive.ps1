@@ -28,15 +28,18 @@ try {
     # Copy the source tree without heavy/local-only artefacts.
     robocopy $root $staging /E /NFL /NDL /NJH /NJS /NP `
         /XD .venv venv .runtime .cache .pytest_cache .ruff_cache `
-            __pycache__ .idea .vscode build dist node_modules `
+            __pycache__ .idea .vscode build dist node_modules models `
         /XF .env *.bak *.log *.tmp *.pyc *.wav *.mp3 Thumbs.db desktop.ini .DS_Store
     if ($LASTEXITCODE -ge 8) {
         throw "robocopy failed with exit code $LASTEXITCODE."
     }
     $global:LASTEXITCODE = 0
 
-    # Biometric folder: keep the consent/retention README only.
+    # Biometric folder: keep the consent/retention README only, never images.
     $trainingStaging = Join-Path $staging "data\training_images"
+    if (Test-Path -LiteralPath $trainingStaging) {
+        Remove-Item -LiteralPath $trainingStaging -Recurse -Force
+    }
     New-Item -ItemType Directory -Force -Path $trainingStaging | Out-Null
     Copy-Item -LiteralPath (Join-Path $root "data\training_images\README.md") `
         -Destination $trainingStaging -Force

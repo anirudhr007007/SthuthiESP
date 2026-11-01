@@ -105,7 +105,7 @@ under `.runtime/huggingface` (pre-fetch with `--warmup-models`).
 | `GROQ_API_KEY` | empty | Never print or commit |
 | `AI_BASE_URL` | empty | Compatible/NVIDIA endpoint; empty means the hosted NVIDIA API for `AI_PROVIDER=nvidia`; remote URLs must be HTTPS |
 | `AI_API_KEY` | empty | Bearer token for a compatible/NVIDIA endpoint (`nvapi-...` for NVIDIA) |
-| `AI_MODEL` | empty | Required for compatible and NVIDIA endpoints (e.g. `z-ai/glm-5.3-flash`) |
+| `AI_MODEL` | empty | Required for compatible and NVIDIA endpoints (e.g. `nvidia/nemotron-3.5-lightning-30b-a3b`); stale NVIDIA ids return HTTP 410 |
 | `WEB_SEARCH` | `true` | Send unmatched general questions to DuckDuckGo for context; `false` disables all web access for answers |
 | `CLOUD_MIN_INTERVAL` | `3.0` | Minimum seconds between remote calls; minimum `0` |
 | `CLOUD_MAX_CALLS_PER_HOUR` | `60` | Remote calls per rolling hour; `0` disables the cap |

@@ -11,11 +11,14 @@ semantic versioning.
 - **NVIDIA NIM** as a supported answer provider (`AI_PROVIDER=nvidia`). It uses
   the OpenAI-compatible hosted endpoint
   `https://integrate.api.nvidia.com/v1/chat/completions` with `AI_API_KEY`
-  (`nvapi-...`) and `AI_MODEL` (for example `z-ai/glm-5.3-flash`);
-  `AI_BASE_URL` may point at a self-hosted NIM deployment instead. NVIDIA is
-  rate-limited like the other cloud providers and is probed by `--doctor`.
-  Hosted NVIDIA speech is a separate streaming/gRPC service, so voice input
-  remains local Whisper or Google STT.
+  (`nvapi-...`) and `AI_MODEL` (for example
+  `nvidia/nemotron-3.5-lightning-30b-a3b`; older catalogue ids can end-of-life
+  with HTTP 410); `AI_BASE_URL` may point at a self-hosted NIM deployment
+  instead. Reasoning models receive `chat_template_kwargs: {"thinking": false}`
+  so kiosk answers are not consumed by hidden reasoning, with one plain retry
+  on an HTTP rejection. NVIDIA is rate-limited like the other cloud providers
+  and is probed by `--doctor`. Hosted NVIDIA speech is a separate
+  streaming/gRPC service, so voice input remains local Whisper or Google STT.
 - `WEB_SEARCH` flag (default `true`) to opt out of the DuckDuckGo context
   added for unmatched general questions, and `VOICE_DEBUG` (default `false`)
   to gate the terminal printing of heard questions and answers.

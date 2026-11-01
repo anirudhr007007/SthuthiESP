@@ -767,6 +767,49 @@ class NvidiaProviderTests(unittest.TestCase):
             answer = ai_provider._ask_nvidia("general question", settings, "system")
         self.assertEqual(answer, "first second")
 
+    def test_nvidia_adapter_disables_thinking_and_retries_plain_on_http_error(self):
+        settings = make_settings(
+            ai_provider="nvidia",
+            ai_api_key="nvapi-secret",
+            ai_model="nvidia/nemotron-3.5-lightning-30b-a3b",
+        )
+        with patch.object(
+            ai_provider,
+            "_post_json",
+            return_value={"choices": [{"message": {"content": "short answer"}}]},
+        ) as post:
+            answer = ai_provider._ask_nvidia("general question", settings, "system")
+        self.assertEqual(answer, "short answer")
+        _, payload, _, _ = post.call_args.args
+        self.assertEqual(
+            payload["chat_template_kwargs"], {"thinking": False}
+        )
+
+        # An HTTP rejection (for example a template that does not accept the
+        # kwarg) triggers exactly one plain retry without it.
+        responses = [
+            ai_provider.AIProviderError("provider returned an HTTP error", code="http"),
+            {"choices": [{"message": {"content": "plain answer"}}]},
+        ]
+        with patch.object(ai_provider, "_post_json", side_effect=responses) as post:
+            answer = ai_provider._ask_nvidia("general question", settings, "system")
+        self.assertEqual(answer, "plain answer")
+        self.assertEqual(post.call_count, 2)
+        _, retried_payload, _, _ = post.call_args.args
+        self.assertNotIn("chat_template_kwargs", retried_payload)
+
+        # Timeouts and network failures are never retried.
+        with patch.object(
+            ai_provider,
+            "_post_json",
+            side_effect=ai_provider.AIProviderError(
+                "provider request failed", code="network"
+            ),
+        ) as post:
+            with self.assertRaises(ai_provider.AIProviderError):
+                ai_provider._ask_nvidia("general question", settings, "system")
+        self.assertEqual(post.call_count, 1)
+
     def test_nvidia_adapter_requires_key_and_model(self):
         missing_key = make_settings(
             ai_provider="nvidia", ai_api_key="", ai_model="m"

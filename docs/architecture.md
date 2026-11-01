@@ -166,7 +166,7 @@ truncated dump of the whole knowledge base, which hid relevant facts.
 | `gemini` | HTTPS `generateContent` | API key in `x-goog-api-key`, never URL |
 | `openai` | OpenAI SDK Responses API, or HTTPS `/v1/responses` fallback | `max_retries=0`, bounded output |
 | `groq` | HTTPS `/v1/chat/completions` | Bearer header; cloud rate limits apply |
-| `nvidia` | HTTPS `/v1/chat/completions` | NVIDIA NIM; `AI_BASE_URL` defaults to the hosted API; cloud rate limits |
+| `nvidia` | HTTPS `/v1/chat/completions` | NVIDIA NIM; `AI_BASE_URL` defaults to the hosted API; reasoning models get `thinking=false` with a plain retry on HTTP rejection; cloud rate limits |
 | `compatible` | HTTPS or loopback `/chat/completions` | Bearer header; remote HTTPS only |
 
 All adapters bound timeout, response bytes, answer length, and redirects.

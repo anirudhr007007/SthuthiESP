@@ -271,17 +271,18 @@ uses `https://api.groq.com/openai/v1/chat/completions`.
 ```text
 AI_PROVIDER=nvidia
 AI_API_KEY=nvapi-...
-AI_MODEL=z-ai/glm-5.3-flash
+AI_MODEL=nvidia/nemotron-3.5-lightning-30b-a3b
 ```
 
 NVIDIA NIM exposes OpenAI-compatible chat completion models at
 `https://integrate.api.nvidia.com/v1` (the default; override `AI_BASE_URL` for
-a self-hosted NIM deployment). `AI_MODEL` is a build.nvidia.com model id such
-as `z-ai/glm-5.3-flash`, `meta/llama-3.3-70b-instruct`, or
-`nvidia/llama-3.3-nemotron-super-49b-v1`. NVIDIA is treated as a cloud
-provider and is rate-limited like Gemini/OpenAI/Groq. NVIDIA's hosted speech
-service is a separate streaming/gRPC API, so voice input stays on local
-Whisper or Google STT.
+a self-hosted NIM deployment). `AI_MODEL` is a live chat model id from
+[build.nvidia.com](https://build.nvidia.com) — catalogue ids age out quickly
+and then answer with HTTP 410 "end of life", so use a current one. NVIDIA is
+treated as a cloud provider and is rate-limited like Gemini/OpenAI/Groq, and
+reasoning models are asked to skip hidden thinking so answers stay short.
+NVIDIA's hosted speech service is a separate streaming/gRPC API, so voice
+input stays on local Whisper or Google STT.
 
 or an OpenAI-compatible endpoint:
 
