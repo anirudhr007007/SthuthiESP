@@ -1,0 +1,6 @@
+# Windows workstation dependencies.
+#
+# Speech output on Windows uses SAPI through pywin32, so pyttsx3 is not
+# required there. PyAudio provides wheels for CPython 3.11 and 3.12.
+-r requirements.txt
+pywin32==308

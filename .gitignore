@@ -1,0 +1,45 @@
+# Secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+
+# Local biometric data: keep consent-based images out of version control.
+data/training_images/**
+!data/training_images/README.md
+
+# Embedding cache and runtime artefacts
+.cache/
+.runtime/
+*.tmp
+*.bak
+*.log
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local recordings and model downloads
+*.wav
+*.mp3
+models/

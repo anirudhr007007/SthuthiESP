@@ -1,0 +1,5 @@
+# Development tools.
+#
+# The unit suite uses only the Python standard library, so CI does not install
+# TensorFlow, OpenCV, or audio packages just to run tests.
+ruff==0.9.10

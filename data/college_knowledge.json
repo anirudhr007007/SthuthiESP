@@ -1,0 +1,2883 @@
+{
+  "schema_version": 2,
+  "college": {
+    "name": "Malnad College of Engineering",
+    "short_name": "MCE",
+    "location": "Hassan, Karnataka, India",
+    "website": "https://www.mcehassan.ac.in/"
+  },
+  "provenance": {
+    "reviewed_on": "2026-10-25",
+    "reviewed_by": "SthuthiBeam maintainers",
+    "method": "Each fact was cross-checked against the user-provided MCE FAQ attachment. HOD names for CSE, ISE, CSBS and EIE were also checked against public MCE department pages on 2026-10-25.",
+    "limitations": "This is a source cross-check, not independent confirmation from the college. Verify time-sensitive details such as officials, intake, fees and dates with the college office before relying on them.",
+    "official_sources": [
+      "https://www.mcehassan.ac.in/",
+      "https://www.mcehassan.ac.in/home/Faculty/Computer-Science-and-Engineering",
+      "https://www.mcehassan.ac.in/home/Faculty/Information-Science-and-Engineering",
+      "https://www.mcehassan.ac.in/home/Faculty/Computer-Science-and-Business-Systems",
+      "https://www.mcehassan.ac.in/home/Faculty/Electronics-and-Instrumentation-Engineering"
+    ]
+  },
+  "facts": [
+    {
+      "verified": true,
+      "question": "What can you do?",
+      "answer": "I can recognize registered faces, greet visitors, and answer questions from verified local knowledge or the selected assistant model.",
+      "source": "Project README and runtime behaviour",
+      "aliases": [
+        "What are your capabilities?",
+        "Can you help me?",
+        "What do you do?",
+        "How can you help me?"
+      ],
+      "keywords": [
+        "registered faces",
+        "greet visitors",
+        "verified local knowledge"
+      ],
+      "source_type": "assistant_help",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Do I need a paid API key?",
+      "answer": "No. The default assistant uses a local Ollama server without a paid API key. Optional cloud providers require their own configuration and credentials.",
+      "source": "Project README and runtime behaviour",
+      "aliases": [
+        "Can I use the assistant without a paid key?",
+        "Does this require a paid API key?",
+        "Is an API key required?",
+        "Do I need an API key?"
+      ],
+      "keywords": [
+        "paid API key",
+        "local Ollama"
+      ],
+      "source_type": "assistant_help",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Civil Engineering at MCE?",
+      "answer": "Dr. Sumana Jayaprakash is the HOD of the Civil Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Civil Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Civil Engineering?",
+        "Who is the Civil Engineering HOD?",
+        "Who heads the Civil Engineering department?",
+        "Who is the head of the Civil Engineering department at MCE?",
+        "who is the civil hod",
+        "who is civil hod",
+        "civil hod",
+        "who is hod of civil",
+        "civil engineering hod",
+        "who is the head of civil engineering",
+        "head of civil engineering",
+        "who heads civil",
+        "who heads civil engineering",
+        "civil department head",
+        "hod of civil",
+        "hod of civil engineering",
+        "Who is the HOD of Civil?",
+        "civil department hod"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Mechanical Engineering at MCE?",
+      "answer": "Dr. Ezhil Vannan S is the HOD of the Mechanical Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Mechanical Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Mechanical Engineering?",
+        "Who is the Mechanical Engineering HOD?",
+        "Who heads the Mechanical Engineering department?",
+        "Who is the head of the Mechanical Engineering department at MCE?",
+        "who is hod of mechanical",
+        "who is h o d of mechanical",
+        "mechanical hod",
+        "who is the mechanical hod",
+        "who is mechanical hod",
+        "mech hod",
+        "who is mech hod",
+        "who is the mech hod",
+        "mechanical engineering hod",
+        "who is mechanical engineering hod",
+        "who heads mechanical",
+        "mechanical department head",
+        "hod of mechanical",
+        "hod of mechanical engineering",
+        "Who is the HOD of Mechanical?",
+        "hod of mech",
+        "mechanical department hod"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Electrical and Electronics Engineering at MCE?",
+      "answer": "Dr. S. Rajanna is the HOD of the Electrical and Electronics Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Electrical and Electronics Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of EEE at MCE?",
+        "Who is the HOD of Electrical and Electronics Engineering?",
+        "Who is the EEE HOD?",
+        "Who heads the EEE department?",
+        "Who is the HOD of EEE?",
+        "who is hod of eee",
+        "who is h o d of e e e",
+        "eee hod",
+        "who is eee hod",
+        "who is electrical hod",
+        "electrical hod",
+        "who is the electrical hod",
+        "who is the electrical engineering hod",
+        "electrical engineering hod",
+        "who heads electrical engineering",
+        "eee department head",
+        "hod of eee",
+        "hod of electrical engineering",
+        "Who is the HOD of Electrical?",
+        "hod of electrical"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Electronics and Communication Engineering at MCE?",
+      "answer": "Dr. Venkateswara Rao Kolli is the HOD of the Electronics and Communication Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Electronics and Communication Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of ECE at MCE?",
+        "Who is the HOD of Electronics and Communication Engineering?",
+        "Who is the ECE HOD?",
+        "Who heads the ECE department?",
+        "Who is the HOD of ECE?",
+        "who is hod of ece",
+        "who is h o d of e c e",
+        "ece hod",
+        "who is ece hod",
+        "who is electronics hod",
+        "electronics hod",
+        "who is the electronics hod",
+        "who is the electronics and communication hod",
+        "who heads electronics and communication",
+        "ece department head",
+        "hod of ece",
+        "hod of electronics and communication",
+        "Who is the HOD of Electronics?",
+        "hod of electronics",
+        "electronics and communication hod"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Computer Science and Engineering at MCE?",
+      "answer": "Dr. Ananda Babu J is the HOD of the Computer Science and Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment; MCE CSE and ISE faculty pages (checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Computer Science and Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of CSE at MCE?",
+        "Who is the HOD of Computer Science and Engineering?",
+        "Who is the CSE HOD?",
+        "Who heads the CSE department?",
+        "Who is the head of the Computer Science department?",
+        "Who is the HOD of CSE?",
+        "who is hod of cse",
+        "who is h o d of c s e",
+        "who's the hod of cse",
+        "who is the hod of computer science",
+        "who's the hod of computer science and engineering",
+        "cse hod",
+        "head of cse",
+        "who is cse hod",
+        "who is computer science hod",
+        "computer science hod",
+        "who heads cse",
+        "who is the head of cse",
+        "cse department head",
+        "hod of cse",
+        "hod of computer science",
+        "Who is the Computer Science HOD?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Information Science and Engineering at MCE?",
+      "answer": "Dr. Ananda Babu J is Professor and HOD of the Information Science and Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment; MCE ISE faculty page (checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Information Science and Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Information Science and Engineering?",
+        "Who is the HOD of ISE at MCE?",
+        "Who is the HOD of ISE?",
+        "Who is the ISE HOD?",
+        "Who heads the ISE department?",
+        "Who heads the Information Science department?",
+        "who is ise hod",
+        "who is information science hod",
+        "information science hod",
+        "who heads ise",
+        "who is the head of ise",
+        "ise department head",
+        "hod of ise",
+        "hod of information science",
+        "ise hod",
+        "Who is the HOD of Information Science?",
+        "Who is the Information Science HOD?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of CSE Artificial Intelligence and Machine Learning at MCE?",
+      "answer": "Dr. Arjun B.C is the HOD of the CSE Artificial Intelligence and Machine Learning Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "CSE Artificial Intelligence Machine Learning",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of AI and ML at MCE?",
+        "Who is the HOD of CSE AI and ML?",
+        "Who is the AI ML HOD?",
+        "Who heads the CSE AI and ML department?",
+        "Who is the HOD of Artificial Intelligence and Machine Learning?",
+        "who is hod of ai ml",
+        "who is hod of cse ai ml",
+        "ai ml hod",
+        "who is the aiml hod",
+        "who is aiml hod",
+        "who is ai ml hod",
+        "aiml hod",
+        "who is the ai and ml hod",
+        "who heads aiml",
+        "aiml department head",
+        "hod of aiml",
+        "hod of ai ml",
+        "Who is the HOD of AIML?",
+        "who is the hod of ai and ml",
+        "who is the hod of ai ml"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Robotics and Artificial Intelligence at MCE?",
+      "answer": "Dr. Arjun B.C is the HOD of the Robotics and Artificial Intelligence Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Robotics Artificial Intelligence",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Robotics and AI at MCE?",
+        "Who is the Robotics and AI HOD?",
+        "Who heads the Robotics and Artificial Intelligence department?",
+        "who is hod of robotics",
+        "robotics hod",
+        "who is the robotics hod",
+        "who is robotics hod",
+        "who heads robotics",
+        "robotics department head",
+        "hod of robotics",
+        "Who is the HOD of Robotics?",
+        "who is the hod of robotics and artificial intelligence",
+        "robotics and ai hod"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Computer Science and Business Systems at MCE?",
+      "answer": "Dr. Naveen Kumar C M is Associate Professor and HOD of the Computer Science and Business Systems Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment; MCE CSBS contact page (checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Computer Science Business Systems",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Computer Science and Business Systems?",
+        "Who is the HOD of CSBS at MCE?",
+        "Who is the HOD of CSBS?",
+        "Who is the CSBS HOD?",
+        "Who heads the CSBS department?",
+        "Who heads the Computer Science and Business Systems department?",
+        "who is hod of csbs",
+        "who is h o d of c s b s",
+        "csbs hod",
+        "who is csbs hod",
+        "who heads csbs",
+        "csbs department head",
+        "hod of csbs"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Electronics and Instrumentation Engineering at MCE?",
+      "answer": "Dr. Naveen Kumar C M is the HOD of the Electronics and Instrumentation Engineering Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment; MCE EIE faculty page (checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Electronics Instrumentation Engineering",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of EIE at MCE?",
+        "Who is the HOD of Electronics and Instrumentation Engineering?",
+        "Who is the EIE HOD?",
+        "Who heads the EIE department?",
+        "Who heads the Electronics and Instrumentation department?",
+        "who is hod of eie",
+        "who is h o d of e i e",
+        "eie hod",
+        "who is eie hod",
+        "who heads eie",
+        "who is instrumentation hod",
+        "eie department head",
+        "hod of eie",
+        "Who is the HOD of Instrumentation?",
+        "instrumentation hod",
+        "hod of instrumentation",
+        "Who is the Instrumentation HOD?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Electronics Engineering VLSI Design and Technology at MCE?",
+      "answer": "Dr. Hemanth Kumar B.M. is the HOD of the Electronics Engineering VLSI Design and Technology Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Electronics Engineering VLSI Design Technology",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of VLSI at MCE?",
+        "Who is the HOD of Electronics Engineering VLSI Design and Technology?",
+        "Who is the VLSI HOD?",
+        "Who heads the VLSI department?",
+        "who is hod of vlsi",
+        "vlsi hod",
+        "who is vlsi hod",
+        "who heads vlsi",
+        "vlsi department head",
+        "hod of vlsi",
+        "Who is the HOD of VLSI?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Mathematics at MCE?",
+      "answer": "Dr. Kalavathi G.K. is the HOD of the Mathematics Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Mathematics",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Mathematics?",
+        "Who is the Mathematics HOD?",
+        "Who heads the Mathematics department?",
+        "Who is the head of the Maths department?",
+        "who is hod of maths",
+        "who is hod of mathematics",
+        "maths hod",
+        "who is the maths hod",
+        "who is maths hod",
+        "who is mathematics hod",
+        "who heads mathematics",
+        "who heads maths",
+        "maths department head",
+        "hod of maths",
+        "hod of mathematics",
+        "Who is the HOD of Math?",
+        "Who is the HOD of Maths?",
+        "math hod",
+        "who is math hod",
+        "hod of math",
+        "Who is the Math HOD?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Chemistry at MCE?",
+      "answer": "Dr. C.B. Pradeep Kumar is the HOD of the Chemistry Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Chemistry",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Chemistry?",
+        "Who is the Chemistry HOD?",
+        "Who heads the Chemistry department?",
+        "Who is the head of the Chemistry department at MCE?",
+        "who is hod of chemistry",
+        "chemistry hod",
+        "who is chemistry hod",
+        "who heads chemistry",
+        "chemistry department head",
+        "hod of chemistry",
+        "Who is the HOD of Chem?",
+        "chem hod",
+        "who is chem hod",
+        "hod of chem"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of Physics at MCE?",
+      "answer": "Dr. Prasanna A.A is the HOD of the Physics Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "Physics",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of Physics?",
+        "Who is the Physics HOD?",
+        "Who heads the Physics department?",
+        "Who is the head of the Physics department at MCE?",
+        "who is hod of physics",
+        "physics hod",
+        "who is physics hod",
+        "who heads physics",
+        "physics department head",
+        "hod of physics",
+        "Who is the HOD of Phy?",
+        "phy hod",
+        "who is phy hod",
+        "hod of phy"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the HOD of MCA at MCE?",
+      "answer": "Smt. R.E. Margaret is the HOD of the MCA Department at Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "HOD",
+        "MCA",
+        "MCE"
+      ],
+      "aliases": [
+        "Who is the HOD of MCA?",
+        "Who is the MCA HOD?",
+        "Who heads the MCA department?",
+        "who is hod of mca",
+        "mca hod",
+        "who is mca hod",
+        "who heads mca",
+        "mca department head",
+        "hod of mca"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the full name of MCE?",
+      "answer": "MCE stands for Malnad College of Engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "full name",
+        "MCE",
+        "Malnad College Engineering"
+      ],
+      "aliases": [
+        "What does MCE stand for?",
+        "What is MCE's full form?",
+        "What is the full form of Malnad College of Engineering?",
+        "MCE full form",
+        "What is the full form of MCE?",
+        "what's the full name of mce",
+        "full name of mce",
+        "mce full name",
+        "what is mce",
+        "tell me about mce",
+        "about mce",
+        "about malnad college of engineering",
+        "what does mce mean"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where is Malnad College of Engineering located?",
+      "answer": "Malnad College of Engineering is located at No. 21, Salagame Road, Rangoli Halla, Hassan, Karnataka - 573202, India.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "location",
+        "Malnad College Engineering",
+        "Hassan"
+      ],
+      "aliases": [
+        "What is the location of MCE on Salagame Road?",
+        "Where is the college located?",
+        "Where is MCE located?",
+        "Where is MCE?",
+        "Where is the college?",
+        "Where is the college situated?",
+        "What is the location of MCE?",
+        "where is malnad college of engineering",
+        "location of mce",
+        "mce location"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the official website of MCE?",
+      "answer": "The official website of Malnad College of Engineering is https://www.mcehassan.ac.in/.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "official website",
+        "MCE",
+        "mcehassan"
+      ],
+      "aliases": [
+        "What is the college website?",
+        "What is MCE's website?",
+        "What is the website of MCE?",
+        "MCE website",
+        "What is the official website?",
+        "what's the website of mce",
+        "official website of mce",
+        "what is mce website",
+        "website of mce",
+        "mce web site",
+        "college website"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Is MCE an autonomous institution?",
+      "answer": "Yes. Malnad College of Engineering is an autonomous institution affiliated to Visvesvaraya Technological University (VTU), Belagavi.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "autonomous institution",
+        "MCE",
+        "VTU"
+      ],
+      "aliases": [
+        "Is the college autonomous?",
+        "Is MCE autonomous?",
+        "Is this college autonomous?",
+        "Is Malnad College of Engineering autonomous?",
+        "mce autonomous",
+        "autonomous mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where is MCE affiliated?",
+      "answer": "MCE is affiliated to Visvesvaraya Technological University (VTU), Belagavi.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "affiliated",
+        "MCE",
+        "VTU"
+      ],
+      "aliases": [
+        "Which university is MCE affiliated to?",
+        "Which university is MCE affiliated with?",
+        "Is MCE affiliated to VTU?",
+        "What university is MCE affiliated to?",
+        "MCE affiliation"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "In which city is MCE located?",
+      "answer": "MCE is located in Hassan city, Karnataka.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "city",
+        "MCE",
+        "Hassan"
+      ],
+      "aliases": [
+        "Which city is MCE in?",
+        "Which city is the college in?",
+        "Where in Karnataka is MCE?",
+        "What city is MCE in?",
+        "MCE city",
+        "city of mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the address of MCE?",
+      "answer": "No. 21, Salagame Road, Rangoli Halla, Hassan, Karnataka - 573202.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "address",
+        "MCE",
+        "Salagame Road"
+      ],
+      "aliases": [
+        "What is the college address?",
+        "What is MCE's address?",
+        "What is the full address of MCE?",
+        "What is the address of the college?",
+        "Give me the college address",
+        "what's the address of mce",
+        "mce address",
+        "address of mce",
+        "what is mce address",
+        "tell me the address of mce",
+        "address of the college",
+        "college address",
+        "mce address details"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the main email address of MCE?",
+      "answer": "The main institutional email address is office@mcehassan.ac.in.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "email address",
+        "MCE",
+        "office"
+      ],
+      "aliases": [
+        "What is the email address of MCE?",
+        "What is MCE's email?",
+        "What is the email of the college?",
+        "What is the college email address?",
+        "MCE email",
+        "what's the email of mce",
+        "email address of mce",
+        "what is mce email",
+        "what is the college email",
+        "email of mce",
+        "college email address",
+        "mce email address",
+        "college email",
+        "what is the email of mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the principal office phone number?",
+      "answer": "The principal office phone number listed by MCE is 08172-245317.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "principal office phone",
+        "MCE",
+        "phone number"
+      ],
+      "aliases": [
+        "How can I contact the principal's office?",
+        "What is the principal's phone number?",
+        "What is the phone number of the principal office?",
+        "What is the principal office contact number?",
+        "What is the principal's office number?",
+        "what's the principal office phone number",
+        "principal office phone",
+        "principal phone number",
+        "principal office contact",
+        "how can i contact the principal office",
+        "how to contact principal office"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What are the working hours of MCE?",
+      "answer": "MCE lists working hours as Monday to Friday from 9:30 AM to 5:30 PM and Saturday from 9:30 AM to 1:30 PM. Sunday is closed.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "working hours",
+        "MCE",
+        "Saturday Sunday"
+      ],
+      "aliases": [
+        "What are the college timings?",
+        "What are MCE office hours?",
+        "What are the office hours of MCE?",
+        "When is the college open?",
+        "What is the working time of MCE?",
+        "What are the working hours?",
+        "what are mce working hours",
+        "mce working hours",
+        "mce timings",
+        "what time does mce open",
+        "college timings",
+        "working hours",
+        "college working hours"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Who is the current principal of MCE?",
+      "answer": "The current MCE website identifies Dr. S. Pradeep as the Principal.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "current principal",
+        "MCE",
+        "Principal"
+      ],
+      "aliases": [
+        "Who is the principal?",
+        "Who is the principal of the college?",
+        "Who is MCE's principal?",
+        "Who is the current principal?",
+        "Who is the principal of MCE?",
+        "Who is the principal of Malnad College of Engineering?",
+        "Who's the principal?",
+        "Who is principal?",
+        "Principal of MCE?",
+        "Principal of college?",
+        "Who is the principal of m c e?",
+        "Who is principal of m c e?",
+        "What is the principal's name?",
+        "Who's principal?",
+        "current principal of mce",
+        "who's the current principal",
+        "principal name",
+        "tell me the principal of mce",
+        "college principal",
+        "who is the college principal"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the campus area of MCE?",
+      "answer": "MCE has a campus area of approximately 41.28 acres.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "campus area",
+        "MCE",
+        "acres"
+      ],
+      "aliases": [
+        "How big is the MCE campus?",
+        "What is the area of the MCE campus?",
+        "What is the area of the campus?",
+        "How many acres is MCE?",
+        "How large is the campus?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What programs does MCE offer?",
+      "answer": "MCE offers undergraduate B.E. programs, M.Tech programs, M.Sc. by Research, Ph.D. programs, and MCA programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "programs",
+        "MCE",
+        "BE MTech MCA"
+      ],
+      "aliases": [
+        "What courses are offered?",
+        "What courses does MCE offer?",
+        "Which programs are offered at MCE?",
+        "What programs are available at MCE?",
+        "What courses are available?",
+        "What does MCE offer?",
+        "What courses does the college offer?",
+        "mce programs",
+        "what courses does mce have",
+        "courses at mce",
+        "what programs are offered",
+        "courses offered by mce",
+        "programs offered by mce",
+        "what are the courses in mce",
+        "courses in mce",
+        "what branches are available",
+        "what branches are offered",
+        "branches in mce",
+        "programs in mce",
+        "branches offered at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How many B.E. programs does MCE offer?",
+      "answer": "The institute page states that MCE offers 9 B.E. programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "BE programs",
+        "MCE",
+        "9"
+      ],
+      "aliases": [
+        "How many BE programs does MCE offer?",
+        "How many B.E. courses does MCE offer?",
+        "How many undergraduate programs does MCE offer?",
+        "How many BE branches are there?",
+        "how many b e programs",
+        "how many be programs",
+        "number of b e programs",
+        "be programs count"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How many M.Tech programs does MCE offer?",
+      "answer": "The institute page states that MCE offers 5 M.Tech programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "MTech programs",
+        "MCE",
+        "5"
+      ],
+      "aliases": [
+        "How many MTech programs does MCE offer?",
+        "How many M.Tech courses does MCE offer?",
+        "How many postgraduate programs does MCE offer?",
+        "How many MTech branches are there?",
+        "how many m tech programs",
+        "m tech programs count"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE offer Ph.D. programs?",
+      "answer": "Yes. MCE offers Ph.D. programs and has VTU-recognized research centers.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "PhD programs",
+        "MCE",
+        "research centers"
+      ],
+      "aliases": [
+        "Does MCE offer a PhD?",
+        "Does MCE offer PhD programs?",
+        "Is there a PhD program at MCE?",
+        "Does the college offer doctoral programs?",
+        "Can I do a PhD at MCE?",
+        "does mce offer phd",
+        "mce phd programs",
+        "phd at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE offer MCA?",
+      "answer": "Yes. MCA is one of the programs offered by MCE.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "MCA",
+        "MCE",
+        "program"
+      ],
+      "aliases": [
+        "Does MCE have MCA?",
+        "Is MCA available at MCE?",
+        "Does the college offer MCA?",
+        "Is there an MCA program at MCE?",
+        "mca at mce",
+        "mce mca"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE offer M.Sc. by Research?",
+      "answer": "Yes. MCE offers M.Sc. by Research.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "MSc Research",
+        "MCE",
+        "program"
+      ],
+      "aliases": [
+        "Does MCE offer MSc by research?",
+        "Is there an M.Sc. by Research program?",
+        "Does MCE offer a research MSc?",
+        "MSc by research at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What entrance exam can be used for admission to MCE?",
+      "answer": "Admission through the government quota is through the Common Entrance Test (CET) conducted in Karnataka, with applications and seat allotment processed through the KEA system.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "entrance exam",
+        "admission MCE",
+        "CET KEA"
+      ],
+      "aliases": [
+        "Which entrance exam is needed for MCE admission?",
+        "What exam should I write for MCE?",
+        "How can I get admission to MCE?",
+        "What is the admission process for MCE?",
+        "Which entrance exam is accepted by MCE?",
+        "How do I join MCE?",
+        "what entrance exam for mce",
+        "entrance exam for mce",
+        "mce entrance exam"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have management quota admission?",
+      "answer": "Yes. MCE provides management-seat admissions, subject to the college's admission procedures and availability.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "management quota",
+        "admission MCE",
+        "management seat"
+      ],
+      "aliases": [
+        "Is management quota available at MCE?",
+        "Does MCE have management seats?",
+        "Can I get admission through management quota?",
+        "management quota admission",
+        "does mce have management quota",
+        "management quota at mce",
+        "mce management quota"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the KCET code of MCE?",
+      "answer": "The MCE website lists KCET codes E-024 for aided programs and E-047 for unaided programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "KCET code",
+        "MCE",
+        "E-024 E-047"
+      ],
+      "aliases": [
+        "What is MCE's KCET code?",
+        "What is the KCET code for MCE?",
+        "KCET code for Malnad College of Engineering",
+        "MCE KCET code",
+        "what's the kcet code of mce",
+        "kcet code of mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the COMED-K code of MCE?",
+      "answer": "The COMED-K code listed by MCE is E-079.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "COMED K code",
+        "MCE",
+        "E-079"
+      ],
+      "aliases": [
+        "What is MCE's COMEDK code?",
+        "What is the COMED-K code for MCE?",
+        "COMEDK code for Malnad College of Engineering",
+        "MCE COMEDK code",
+        "what's the comed k code of mce",
+        "comed k code of mce",
+        "mce comed k code"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Which departments are accredited by NBA at MCE?",
+      "answer": "The MCE website lists Civil Engineering, Mechanical Engineering, Electrical and Electronics Engineering, Electronics and Communication Engineering, Computer Science and Engineering, and Information Science and Engineering as NBA-accredited departments.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "NBA accredited departments",
+        "MCE",
+        "Civil Mechanical CSE"
+      ],
+      "aliases": [
+        "Which departments have NBA accreditation at MCE?",
+        "Which MCE departments are NBA accredited?",
+        "Which courses are NBA accredited at MCE?",
+        "NBA accredited departments"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Computer Science and Engineering department?",
+      "answer": "Yes. MCE has a Computer Science and Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Computer Science Engineering department",
+        "MCE",
+        "CSE"
+      ],
+      "aliases": [
+        "Does MCE have CSE?",
+        "Does the college have a CSE department?",
+        "Is there a Computer Science department at MCE?",
+        "Does MCE have a Computer Science department?",
+        "CSE department at MCE",
+        "cse at mce",
+        "computer science at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Artificial Intelligence and Machine Learning program?",
+      "answer": "Yes. MCE offers a B.E. program in Computer Science and Engineering with specialization in Artificial Intelligence and Machine Learning.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Artificial Intelligence Machine Learning",
+        "MCE",
+        "program"
+      ],
+      "aliases": [
+        "Does MCE have an AI ML program?",
+        "Is AI and ML offered at MCE?",
+        "Does MCE offer AI and ML?",
+        "Is there an AI ML course at MCE?",
+        "Does MCE offer Artificial Intelligence and Machine Learning?",
+        "AI and ML program at MCE",
+        "does mce have ai ml",
+        "ai ml at mce",
+        "artificial intelligence at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the full name of the AI&ML program at MCE?",
+      "answer": "The program is called Computer Science and Engineering (Artificial Intelligence and Machine Learning).",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "full name AI ML",
+        "MCE",
+        "CSE"
+      ],
+      "aliases": [
+        "What is the AI ML program called?",
+        "What is the full form of CSE AI ML?",
+        "What is the name of the AI and ML program?",
+        "CSE AI ML full form"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "When was the CSE AI&ML program approved?",
+      "answer": "The MCE program page lists approvals beginning in 2022 for the CSE (AI&ML) undergraduate program.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "CSE AI ML approved",
+        "MCE",
+        "2022"
+      ],
+      "aliases": [
+        "When was AI ML started at MCE?",
+        "When was the AI ML course approved?",
+        "When did CSE AI ML begin?",
+        "When was the CSE AI and ML program started?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the intake of the CSE AI&ML program?",
+      "answer": "The MCE website lists different intakes for different admitted batches: 60 for the 2022 approval, 68 for 2023, and 58 for 2024. The current intake should be checked against the latest admission notification.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "CSE AI ML intake",
+        "MCE",
+        "admission notification"
+      ],
+      "aliases": [
+        "How many seats are in CSE AI ML?",
+        "What is the AI ML intake?",
+        "What is the intake of CSE AI and ML?",
+        "How many seats does the AI ML program have?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What are the objectives of the CSE AI&ML program?",
+      "answer": "The program aims to provide fundamentals in computer science, artificial intelligence and machine learning, prepare students for IT careers or entrepreneurship, support higher studies and research, and develop lifelong learning, teamwork and leadership skills.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "objectives CSE AI ML",
+        "MCE",
+        "computer science"
+      ],
+      "aliases": [
+        "What does the CSE AI ML program aim to do?",
+        "What are the AI ML program objectives?",
+        "What is the objective of the AI and ML course?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What are the major areas of AI&ML at MCE?",
+      "answer": "AI&ML education and research at MCE includes artificial intelligence, machine learning, data engineering, data science, computer vision, affective computing, cognitive computing and intelligent systems.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "AI ML areas",
+        "MCE",
+        "research"
+      ],
+      "aliases": [
+        "What are some AI and ML research areas at MCE?",
+        "What does AI ML cover at MCE?",
+        "What are the areas of AI and ML?",
+        "What are the AI and ML research areas at MCE?",
+        "What AI research happens at MCE?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Robotics and Artificial Intelligence department?",
+      "answer": "Yes. MCE has a Robotics and Artificial Intelligence undergraduate program.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Robotics Artificial Intelligence",
+        "MCE",
+        "undergraduate program"
+      ],
+      "aliases": [
+        "Does MCE have a Robotics and AI department?",
+        "Is Robotics and AI offered at MCE?",
+        "Does MCE have robotics?",
+        "Is there a Robotics and Artificial Intelligence program at MCE?",
+        "Robotics and AI at MCE",
+        "robotics at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "When was the Robotics and Artificial Intelligence program approved?",
+      "answer": "The MCE program page lists 2025 as the year of approval for the Robotics and Artificial Intelligence undergraduate program.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Robotics Artificial Intelligence approved",
+        "MCE",
+        "2025"
+      ],
+      "aliases": [
+        "When was Robotics and AI approved?",
+        "When did the Robotics and Artificial Intelligence program start?",
+        "When was the Robotics and AI program approved?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the intake of Robotics and Artificial Intelligence at MCE?",
+      "answer": "The MCE program page lists an intake of 60 students for Robotics and Artificial Intelligence.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Robotics Artificial Intelligence intake",
+        "MCE",
+        "60 students"
+      ],
+      "aliases": [
+        "How many seats are in Robotics and AI?",
+        "What is the Robotics and AI intake?",
+        "What is the intake of the Robotics and Artificial Intelligence program?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have Information Science and Engineering?",
+      "answer": "Yes. MCE has an Information Science and Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Information Science Engineering",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have ISE?",
+        "Is there an Information Science department at MCE?",
+        "Does MCE have an ISE department?",
+        "Information Science and Engineering at MCE",
+        "ise at mce",
+        "information science at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have Computer Science and Business Systems?",
+      "answer": "Yes. MCE has a Computer Science and Business Systems undergraduate program.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Computer Science Business Systems",
+        "MCE",
+        "undergraduate program"
+      ],
+      "aliases": [
+        "Does MCE have CSBS?",
+        "Is CSBS offered at MCE?",
+        "Does the college have CSBS?",
+        "Is there a Computer Science and Business Systems program?",
+        "CSBS at MCE",
+        "computer science business systems at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "When was the Computer Science and Business Systems program approved?",
+      "answer": "The MCE program page lists 2022 as the year of approval.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Computer Science Business Systems approved",
+        "MCE",
+        "2022"
+      ],
+      "aliases": [
+        "When was CSBS approved?",
+        "When did the CSBS program start?",
+        "When was the CSBS program approved?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the intake of Computer Science and Business Systems?",
+      "answer": "The MCE program page lists an intake of 60.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Computer Science Business Systems intake",
+        "MCE",
+        "60"
+      ],
+      "aliases": [
+        "How many seats are in CSBS?",
+        "What is the CSBS intake?",
+        "What is the intake of the CSBS program?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Civil Engineering department?",
+      "answer": "Yes. Civil Engineering is one of the established engineering departments at MCE.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Civil Engineering department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have Civil Engineering?",
+        "Is Civil Engineering offered at MCE?",
+        "Is there a Civil Engineering department?",
+        "Civil Engineering at MCE",
+        "does mce have civil"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Mechanical Engineering department?",
+      "answer": "Yes. MCE has a Mechanical Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Mechanical Engineering department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have Mechanical Engineering?",
+        "Is Mechanical Engineering offered at MCE?",
+        "Is there a Mechanical Engineering department?",
+        "Mechanical Engineering at MCE",
+        "does mce have mechanical"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Electrical and Electronics Engineering department?",
+      "answer": "Yes. MCE has an Electrical and Electronics Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Electrical Electronics Engineering department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have EEE?",
+        "Is Electrical and Electronics Engineering offered at MCE?",
+        "Is there an EEE department?",
+        "EEE department at MCE",
+        "electrical and electronics at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Electronics and Communication Engineering department?",
+      "answer": "Yes. MCE has an Electronics and Communication Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Electronics Communication Engineering department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have ECE?",
+        "Is Electronics and Communication Engineering offered at MCE?",
+        "Is there an ECE department?",
+        "ECE department at MCE",
+        "electronics and communication at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Electronics Engineering VLSI Design and Technology department?",
+      "answer": "Yes. MCE lists Electronics Engineering (VLSI Design & Technology) among its departments.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Electronics Engineering VLSI Design Technology",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have VLSI?",
+        "Is VLSI Design offered at MCE?",
+        "Does MCE have an ECE VLSI department?",
+        "VLSI department at MCE",
+        "vlsi at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Automobile Engineering department?",
+      "answer": "Yes. MCE has an Automobile Engineering department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Automobile Engineering department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have Automobile Engineering?",
+        "Is Automobile Engineering offered at MCE?",
+        "Is there an Automobile department?",
+        "Automobile Engineering at MCE",
+        "does mce have automobile",
+        "automobile department"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Physics department?",
+      "answer": "Yes. MCE has a Physics department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Physics department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Is Physics taught at MCE?",
+        "Is there a Physics department at MCE?",
+        "Physics department at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Chemistry department?",
+      "answer": "Yes. MCE has a Chemistry department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Chemistry department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Is Chemistry taught at MCE?",
+        "Is there a Chemistry department at MCE?",
+        "Chemistry department at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Mathematics department?",
+      "answer": "Yes. MCE has a Mathematics department.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Mathematics department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Is Mathematics taught at MCE?",
+        "Is there a Mathematics department at MCE?",
+        "Is there a Maths department at MCE?",
+        "Mathematics department at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a MCA department?",
+      "answer": "Yes. MCE lists MCA as an academic department/program.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "MCA department",
+        "MCE",
+        "department"
+      ],
+      "aliases": [
+        "Does MCE have an MCA department?",
+        "Is there an MCA department at MCE?",
+        "Does MCE have MCA department?",
+        "MCA department at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support research?",
+      "answer": "Yes. MCE supports research through its research programs, research centers, faculty researchers and doctoral programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "research department",
+        "MCE",
+        "research programs"
+      ],
+      "aliases": [
+        "Does MCE do research?",
+        "Is research available at MCE?",
+        "Does the college have research programs?",
+        "Does MCE have a research department?",
+        "Research at MCE",
+        "mce research",
+        "mce research department"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What are the major research areas at MCE?",
+      "answer": "Major research areas listed by MCE include Artificial Intelligence and Machine Learning, Data Science, Cybersecurity, Embedded Systems and IoT, Renewable Energy Systems, Advanced Composite Materials, Environmental and Water Resource Engineering, Structural Engineering and Sustainable Construction.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "major research areas",
+        "MCE",
+        "AI Data Science Cybersecurity"
+      ],
+      "aliases": [
+        "What research is done at MCE?",
+        "What are MCE's research areas?",
+        "What are the research domains at MCE?",
+        "What are the major research areas?",
+        "what are research areas at mce",
+        "mce research areas",
+        "research areas mce",
+        "ai and ml research areas at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have VTU-recognized research centers?",
+      "answer": "Yes. Several departments of MCE are recognized as VTU research centers.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "VTU research centers",
+        "MCE",
+        "recognized"
+      ],
+      "aliases": [
+        "Does MCE have VTU research centres?",
+        "Are there recognized research centers at MCE?",
+        "Does MCE have VTU recognised research centres?",
+        "VTU research centres at MCE",
+        "does mce have vtu research centers",
+        "vtu research centers at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support internships?",
+      "answer": "Yes. MCE encourages industry-institute interaction through internships, joint projects and related activities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "internships",
+        "MCE",
+        "industry interaction"
+      ],
+      "aliases": [
+        "Does MCE offer internships?",
+        "Are internships available at MCE?",
+        "Can students do internships at MCE?",
+        "Internship opportunities at MCE",
+        "internships at mce",
+        "mce internships"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have industry collaborations?",
+      "answer": "Yes. MCE promotes industry-institute interaction through collaborations, internships, joint projects and consultancy services.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "industry collaborations",
+        "MCE",
+        "internships"
+      ],
+      "aliases": [
+        "Does MCE collaborate with industry?",
+        "Does MCE have industry partnerships?",
+        "Does MCE have industry collaboration?",
+        "Industry collaboration at MCE",
+        "industry collaborations at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an innovation and incubation center?",
+      "answer": "Yes. MCE has an Innovation and Incubation Center.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "innovation incubation center",
+        "MCE",
+        "center"
+      ],
+      "aliases": [
+        "Does MCE have an incubation center?",
+        "Does MCE have an innovation center?",
+        "Is there a startup incubation center at MCE?",
+        "Innovation and incubation at MCE",
+        "does mce have innovation center",
+        "innovation center at mce",
+        "incubation center at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE participate in Atal Innovation Mission?",
+      "answer": "Yes. MCE's research information mentions active participation in Atal Innovation Mission.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Atal Innovation Mission",
+        "MCE",
+        "research"
+      ],
+      "aliases": [
+        "Is MCE part of Atal Innovation Mission?",
+        "Does MCE participate in AIM?",
+        "Atal Innovation Mission at MCE",
+        "atal innovation mission mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have AICTE IDEA Labs?",
+      "answer": "Yes. MCE's research information mentions AICTE IDEA Labs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "AICTE IDEA Labs",
+        "MCE",
+        "labs"
+      ],
+      "aliases": [
+        "Does MCE have IDEA Labs?",
+        "Does MCE have AICTE IDEA Lab?",
+        "AICTE IDEA Labs at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE provide placement assistance?",
+      "answer": "Yes. MCE has a Training and Placement Centre that trains and assists students in securing employment.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "placement assistance",
+        "MCE",
+        "Training Placement Centre"
+      ],
+      "aliases": [
+        "Does MCE help with placements?",
+        "Does the college provide placement support?",
+        "Does MCE provide placement support?",
+        "Placement assistance at MCE",
+        "does mce provide placement",
+        "placements at mce",
+        "mce placements",
+        "placement at mce",
+        "does mce have placements",
+        "placements in mce",
+        "how are placements in mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Which companies are mentioned by MCE in relation to campus recruitment?",
+      "answer": "MCE mentions companies such as Tata Consultancy Services, Infosys, Wipro, L&T and BEL among organizations associated with campus recruitment.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "campus recruitment companies",
+        "MCE",
+        "TCS Infosys Wipro"
+      ],
+      "aliases": [
+        "Which companies recruit at MCE?",
+        "Which companies visit MCE?",
+        "Who recruits MCE students?",
+        "Which companies come for campus recruitment at MCE?",
+        "Campus recruitment companies at MCE",
+        "companies recruiting at mce",
+        "mce recruiters"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Training and Placement Centre?",
+      "answer": "Yes. MCE has a dedicated Training and Placement Centre.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Training Placement Centre",
+        "MCE",
+        "placement"
+      ],
+      "aliases": [
+        "Does MCE have a placement cell?",
+        "Does MCE have a T&P cell?",
+        "Is there a Training and Placement Centre at MCE?",
+        "Training and Placement Centre at MCE",
+        "does mce have training and placement centre",
+        "training and placement centre mce",
+        "placement cell mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE organize technical events?",
+      "answer": "Yes. MCE departments organize technical talks, workshops, hackathons, conferences and other technical activities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "technical events",
+        "MCE",
+        "workshops hackathons conferences"
+      ],
+      "aliases": [
+        "Does MCE conduct technical festivals?",
+        "Are there technical events at MCE?",
+        "Does MCE hold technical events?",
+        "Technical events at MCE",
+        "mce technical events"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE organize AI-related events?",
+      "answer": "Yes. The CSE AI&ML department has organized activities including AI workflow hackathons, talks on AI assistants, big data analytics in computer vision and prompt engineering.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "AI events",
+        "MCE",
+        "AI assistants hackathons"
+      ],
+      "aliases": [
+        "Does MCE host AI events?",
+        "Are there AI hackathons at MCE?",
+        "Does MCE organize AI events?",
+        "AI events at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is Automathon at MCE?",
+      "answer": "Automathon is an AI workflow hackathon organized by the CSE AI&ML department. The MCE activity page lists Automathon 1.0 as an inter-college AI workflow hackathon.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Automathon",
+        "MCE",
+        "AI workflow hackathon"
+      ],
+      "aliases": [
+        "What is Automathon?",
+        "Tell me about Automathon.",
+        "What is Automathon 1.0?",
+        "automathon at mce",
+        "automathon mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE conduct workshops on Generative AI?",
+      "answer": "Yes. MCE departments have conducted workshops and technical activities related to Generative AI.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Generative AI workshops",
+        "MCE",
+        "workshops"
+      ],
+      "aliases": [
+        "Does MCE teach Generative AI?",
+        "Are there GenAI workshops at MCE?",
+        "Does MCE conduct Generative AI workshops?",
+        "Generative AI workshop at MCE",
+        "generative ai workshops at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE organize conferences?",
+      "answer": "Yes. MCE organizes and hosts academic and technical conferences.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "conferences",
+        "MCE",
+        "academic technical"
+      ],
+      "aliases": [
+        "Does MCE host conferences?",
+        "Are conferences held at MCE?",
+        "Does MCE conduct conferences?",
+        "Conferences at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is ICDSIS?",
+      "answer": "ICDSIS refers to the International Conference on Data Science and Information System organized by MCE in collaboration with IEEE-related sections.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "ICDSIS",
+        "MCE",
+        "Data Science Information System"
+      ],
+      "aliases": [
+        "What does ICDSIS stand for?",
+        "What is the ICDSIS conference?",
+        "ICDSIS full form",
+        "Tell me about ICDSIS",
+        "icdsis at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have student affairs services?",
+      "answer": "Yes. MCE has a Dean of Student Affairs and student-affairs related services.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "student affairs",
+        "MCE",
+        "Dean"
+      ],
+      "aliases": [
+        "Does MCE have a student affairs office?",
+        "Is there a Dean of Student Affairs?",
+        "Does MCE have student affairs?",
+        "Student affairs at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the Dean of Student Affairs contact number?",
+      "answer": "The MCE website lists 9449689093 for the Dean of Student Affairs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Dean Student Affairs contact",
+        "MCE",
+        "9449689093"
+      ],
+      "aliases": [
+        "How can students contact Student Affairs?",
+        "What is the student affairs phone number?",
+        "How can I contact the Dean of Student Affairs?",
+        "What is the student affairs contact number?",
+        "Student Affairs contact number",
+        "Dean of Student Affairs contact",
+        "what's the dean of student affairs contact",
+        "dean student affairs contact",
+        "dean of student affairs phone",
+        "how to contact student affairs"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have hostels?",
+      "answer": "Yes. MCE provides hostel facilities for students, including boys' and girls' hostels.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "hostels",
+        "MCE",
+        "boys girls"
+      ],
+      "aliases": [
+        "Does the college have a hostel?",
+        "Does MCE provide hostel facilities?",
+        "Is there a hostel at MCE?",
+        "Does MCE have a hostel?",
+        "Hostel facilities at MCE",
+        "hostels at mce",
+        "mce hostel",
+        "does mce have hostel",
+        "hostel facility in mce",
+        "hostels in mce",
+        "hostel facility",
+        "hostel details"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a library?",
+      "answer": "Yes. MCE provides library and learning-resource facilities for students.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "library",
+        "MCE",
+        "learning resources"
+      ],
+      "aliases": [
+        "Does the college have a library?",
+        "Is there a library at MCE?",
+        "Does MCE have library facilities?",
+        "Library facilities at MCE",
+        "does mce have library",
+        "library at mce",
+        "mce library",
+        "library timings",
+        "library facility",
+        "library facilities"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have laboratories?",
+      "answer": "Yes. MCE has laboratories and specialized facilities supporting engineering education and research.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "laboratories",
+        "MCE",
+        "specialized facilities"
+      ],
+      "aliases": [
+        "Does the college have labs?",
+        "Does MCE have labs?",
+        "Are there laboratories at MCE?",
+        "Does MCE have laboratory facilities?",
+        "Laboratory facilities at MCE",
+        "labs at mce",
+        "mce laboratories"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support extracurricular activities?",
+      "answer": "Yes. Students can participate in extracurricular and co-curricular activities through college departments and student activities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "extracurricular activities",
+        "MCE",
+        "student activities"
+      ],
+      "aliases": [
+        "Does the college have extracurricular activities?",
+        "Are there extracurricular activities at MCE?",
+        "Does MCE have extracurricular activities?",
+        "Extracurricular activities at MCE",
+        "does mce support extracurricular",
+        "extracurricular at mce",
+        "mce extracurricular"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support student technical activities?",
+      "answer": "Yes. MCE supports workshops, technical talks, hackathons, conferences and other technical activities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "student technical activities",
+        "MCE",
+        "workshops hackathons"
+      ],
+      "aliases": [
+        "Does the college support technical activities?",
+        "Are there student technical activities at MCE?",
+        "Does MCE have student technical activities?",
+        "Student technical activities at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Is MCE accredited by NAAC?",
+      "answer": "MCE's institutional documents identify the college as accredited by NAAC.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "NAAC accreditation",
+        "MCE",
+        "accredited"
+      ],
+      "aliases": [
+        "Is MCE NAAC accredited?",
+        "Does MCE have NAAC accreditation?",
+        "Is the college NAAC accredited?",
+        "NAAC accreditation for MCE",
+        "mce naac accreditation",
+        "naac accreditation mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Is MCE accredited by NBA?",
+      "answer": "Yes. MCE has NBA accreditation for several engineering departments, including Civil, Mechanical, EEE, ECE, CSE and ISE.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "NBA accreditation",
+        "MCE",
+        "Civil Mechanical CSE"
+      ],
+      "aliases": [
+        "Is MCE NBA accredited?",
+        "Does MCE have NBA accreditation?",
+        "Is the college NBA accredited?",
+        "NBA accreditation for MCE",
+        "mce nba accreditation",
+        "nba accreditation mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the full form of NBA?",
+      "answer": "NBA stands for National Board of Accreditation.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "full form NBA",
+        "National Board Accreditation",
+        "MCE"
+      ],
+      "aliases": [
+        "What does NBA stand for?",
+        "NBA full form",
+        "what's the full form of nba"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the full form of NAAC?",
+      "answer": "NAAC stands for National Assessment and Accreditation Council.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "full form NAAC",
+        "National Assessment Accreditation Council",
+        "MCE"
+      ],
+      "aliases": [
+        "What does NAAC stand for?",
+        "NAAC full form",
+        "what's the full form of naac"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is VTU?",
+      "answer": "VTU stands for Visvesvaraya Technological University, Belagavi.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "VTU",
+        "Visvesvaraya Technological University",
+        "MCE"
+      ],
+      "aliases": [
+        "What does VTU stand for?",
+        "VTU full form",
+        "What is the full form of VTU?",
+        "Which university is VTU?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is MCE's relationship with VTU?",
+      "answer": "MCE is an autonomous institution affiliated to VTU, Belagavi.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "relationship VTU",
+        "MCE",
+        "affiliated autonomous"
+      ],
+      "aliases": [
+        "How is MCE related to VTU?",
+        "Is MCE under VTU?",
+        "MCE VTU affiliation",
+        "What is the relationship between MCE and VTU?",
+        "mce vtu relationship",
+        "mce affiliation vtu",
+        "vtu affiliation mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Is MCE approved by AICTE?",
+      "answer": "MCE's institutional documents identify the institution as approved by AICTE, New Delhi.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "AICTE approval",
+        "MCE",
+        "New Delhi"
+      ],
+      "aliases": [
+        "Is MCE AICTE approved?",
+        "Does MCE have AICTE approval?",
+        "Is the college AICTE approved?",
+        "AICTE approval for MCE",
+        "aicte approval mce",
+        "mce aicte"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the postal address of MCE?",
+      "answer": "The postal address is Malnad College of Engineering, P.O. Box 21, Salagame Road, Hassan - 573202, Karnataka, India.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "postal address",
+        "MCE",
+        "P O Box 21"
+      ],
+      "aliases": [
+        "What is MCE's postal address?",
+        "What is the postal address of the college?",
+        "What is the P O Box address of MCE?",
+        "Postal address of MCE",
+        "what's the postal address of mce",
+        "postal address mce",
+        "mce postal address"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How can I contact MCE?",
+      "answer": "You can contact MCE through office@mcehassan.ac.in or the official college contact numbers listed on the MCE website.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "contact MCE",
+        "office email",
+        "official website"
+      ],
+      "aliases": [
+        "How do I contact MCE?",
+        "What is the contact number of MCE?",
+        "What is the college contact number?",
+        "How can I reach MCE?",
+        "How do I contact the college?",
+        "MCE contact details",
+        "contact mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where can I find information about MCE departments?",
+      "answer": "Department information is available on the official MCE website under the respective department sections.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "department information",
+        "MCE",
+        "official website"
+      ],
+      "aliases": [
+        "Where can I find the department list?",
+        "Where are MCE departments listed?",
+        "Where can I find MCE department information?",
+        "MCE department list",
+        "where to find mce departments info",
+        "mce departments information",
+        "mce departments details"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where can I find MCE syllabus information?",
+      "answer": "Syllabus information is available on the official MCE website under the respective department's syllabus section.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "syllabus information",
+        "MCE",
+        "official website"
+      ],
+      "aliases": [
+        "Where can I find the syllabus?",
+        "Where is the MCE syllabus?",
+        "Where can I get the syllabus of MCE?",
+        "MCE syllabus",
+        "where to find mce syllabus",
+        "syllabus at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where can I find MCE faculty information?",
+      "answer": "Faculty information is available on the official MCE website under each department's faculty section.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "faculty information",
+        "MCE",
+        "official website"
+      ],
+      "aliases": [
+        "Where can I see faculty details?",
+        "Where is the faculty list?",
+        "Where can I find the faculty list of MCE?",
+        "MCE faculty list",
+        "where to find mce faculty info",
+        "mce faculty information",
+        "faculty at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Where can I find MCE admission information?",
+      "answer": "Admission information is available on the official MCE website and through the college admission office.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "admission information",
+        "MCE",
+        "admission office"
+      ],
+      "aliases": [
+        "Where can I find admission details?",
+        "Where is admission info?",
+        "Where can I get MCE admission information?",
+        "MCE admission details",
+        "where to find mce admission info",
+        "mce admission information",
+        "admission at mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a Board of Studies?",
+      "answer": "Yes. MCE has Boards of Studies for its academic departments and programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Board of Studies",
+        "MCE",
+        "academic departments"
+      ],
+      "aliases": [
+        "Does MCE have a BOS?",
+        "What is the Board of Studies?",
+        "Does MCE have Boards of Studies?",
+        "Board of Studies at MCE",
+        "does mce have board of studies",
+        "board of studies mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have an Internal Quality Assurance Cell?",
+      "answer": "Yes. MCE has an Internal Quality Assurance Cell, commonly called IQAC.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "Internal Quality Assurance Cell",
+        "MCE",
+        "IQAC"
+      ],
+      "aliases": [
+        "Does MCE have IQAC?",
+        "Is there an IQAC at MCE?",
+        "Does MCE have an IQAC?",
+        "IQAC at MCE",
+        "internal quality assurance cell mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is IQAC?",
+      "answer": "IQAC stands for Internal Quality Assurance Cell. It supports continuous improvement in academic and administrative quality.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "IQAC",
+        "Internal Quality Assurance Cell",
+        "MCE"
+      ],
+      "aliases": [
+        "What does IQAC stand for?",
+        "IQAC full form",
+        "What is the Internal Quality Assurance Cell?"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support research publications?",
+      "answer": "Yes. Faculty and researchers at MCE publish research work in various engineering and technology domains.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "research publications",
+        "MCE",
+        "faculty researchers"
+      ],
+      "aliases": [
+        "Does MCE publish research papers?",
+        "Does MCE encourage research publications?",
+        "Research publications at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE conduct placement training?",
+      "answer": "Yes. The Training and Placement Centre provides training and assistance to students for employment opportunities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "placement training",
+        "MCE",
+        "employment"
+      ],
+      "aliases": [
+        "Does MCE provide placement training?",
+        "Is placement training given at MCE?",
+        "Does MCE have placement training?",
+        "Placement training at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Can students participate in hackathons at MCE?",
+      "answer": "Yes. MCE departments organize and participate in hackathons and other technical competitions.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "hackathons",
+        "MCE",
+        "technical competitions"
+      ],
+      "aliases": [
+        "Can students take part in hackathons?",
+        "Are there hackathons at MCE?",
+        "Can MCE students participate in hackathons?",
+        "Hackathons at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Can MCE students participate in workshops?",
+      "answer": "Yes. Students can participate in workshops conducted by departments and the institution.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "workshops",
+        "MCE",
+        "students"
+      ],
+      "aliases": [
+        "Can students attend workshops?",
+        "Are workshops available for students?",
+        "Can MCE students attend workshops?",
+        "Workshops at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE organize industry interaction programs?",
+      "answer": "Yes. MCE organizes industry interaction activities such as expert talks, workshops, internships and collaborative activities.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "industry interaction programs",
+        "MCE",
+        "expert talks internships"
+      ],
+      "aliases": [
+        "Does MCE have industry interaction programs?",
+        "Are there industry interaction programs?",
+        "Does MCE organize industry interaction?",
+        "Industry interaction at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE support entrepreneurship?",
+      "answer": "Yes. MCE promotes innovation, incubation and entrepreneurship through its innovation-related initiatives.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "entrepreneurship",
+        "MCE",
+        "innovation incubation"
+      ],
+      "aliases": [
+        "Does MCE encourage startups?",
+        "Is entrepreneurship supported at MCE?",
+        "Does MCE support startups?",
+        "Entrepreneurship at MCE"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does MCE have a campus in Hassan?",
+      "answer": "Yes. MCE's campus is located in Hassan, Karnataka.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "campus Hassan",
+        "MCE",
+        "Karnataka"
+      ],
+      "aliases": [
+        "Is MCE in Hassan?",
+        "Is MCE located in Hassan?",
+        "Does MCE have a Hassan campus?",
+        "MCE Hassan campus",
+        "does mce have campus in hassan",
+        "mce campus hassan"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What tourist places are near Hassan mentioned by MCE?",
+      "answer": "MCE's institute information mentions famous places such as Belur, Halebidu and Shravanabelagola in the Hassan region.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "tourist places Hassan",
+        "MCE",
+        "Belur Halebidu"
+      ],
+      "aliases": [
+        "What places can I visit near Hassan?",
+        "What tourist spots are near MCE?",
+        "What tourist places are near Hassan?",
+        "Places to visit near MCE",
+        "tourist places near hassan mce",
+        "places near mce hassan"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What makes MCE suitable for engineering education?",
+      "answer": "MCE provides engineering programs, laboratories, research opportunities, industry interaction, placement support, technical activities and a large campus.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "suitable engineering education",
+        "MCE",
+        "programs research placement"
+      ],
+      "aliases": [
+        "Why choose MCE?",
+        "What are the highlights of MCE?",
+        "Is MCE a good engineering college?",
+        "What is special about MCE?",
+        "why mce for engineering",
+        "mce engineering education"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the official source for MCE information?",
+      "answer": "The official source is the Malnad College of Engineering website at mcehassan.ac.in.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "official source",
+        "MCE",
+        "mcehassan"
+      ],
+      "aliases": [
+        "Where should I verify MCE information?",
+        "What is the official MCE source?",
+        "What is the official source of MCE information?",
+        "Official MCE information",
+        "official source for mce info",
+        "mce official website info"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Should the chatbot provide outdated information about MCE?",
+      "answer": "No. The chatbot should prioritize current official MCE information and clearly state when information such as principal, HODs, admission intake, fees or contact numbers may change.",
+      "source": "Project answer policy",
+      "keywords": [
+        "outdated information",
+        "MCE",
+        "current official"
+      ],
+      "aliases": [
+        "Can you give outdated MCE information?",
+        "Should you share old college information?",
+        "should chatbot give outdated mce info",
+        "outdated mce info chatbot"
+      ],
+      "source_type": "answer_policy",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What should the chatbot do if it does not know an MCE-specific answer?",
+      "answer": "It should say that the information could not be confirmed from the available MCE knowledge base and direct the user to the official MCE website or relevant college office rather than inventing an answer.",
+      "source": "Project answer policy",
+      "keywords": [
+        "unknown MCE answer",
+        "official website college office",
+        "do not invent"
+      ],
+      "aliases": [
+        "What do you do if you don't know an MCE answer?",
+        "What if you don't know the answer?",
+        "what if chatbot doesn't know mce answer",
+        "chatbot unknown mce question"
+      ],
+      "source_type": "answer_policy",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How many students are there in MCE?",
+      "answer": "Malnad College of Engineering has around 4,000 students on its rolls across its undergraduate and postgraduate programs. MCE's latest NIRF 2026 submission reports 3,840 UG and PG students combined.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "student count",
+        "MCE",
+        "4,000"
+      ],
+      "aliases": [
+        "Approximately how many students study at MCE?",
+        "Approximately how many students study at Malnad College of Engineering?",
+        "How many students study at MCE?",
+        "How many students does MCE have?",
+        "What is the student count of MCE?",
+        "How many students are there at MCE?",
+        "How many students are in the college?",
+        "how many students in mce",
+        "student count mce",
+        "total students mce",
+        "number of students",
+        "how many students are in mce",
+        "total students in mce",
+        "student strength of mce",
+        "total student count"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "What is the total student strength of MCE?",
+      "answer": "MCE's official institutional profile states that the college has about 4,000 students on rolls. Its latest NIRF 2026 submission reports a total of 3,840 UG and PG students combined.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "total student strength",
+        "MCE",
+        "NIRF 2026 3840"
+      ],
+      "aliases": [
+        "How many students are studying in all branches of MCE?",
+        "What is the current student strength of MCE?",
+        "What is the exact student strength of MCE?",
+        "What is the total number of students at MCE?",
+        "what's the total student strength of mce",
+        "total student strength mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How many UG students are there in MCE?",
+      "answer": "According to MCE's NIRF 2026 submission, there are 3,797 undergraduate students across all UG programs.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "UG students",
+        "MCE",
+        "NIRF 2026 3797"
+      ],
+      "aliases": [
+        "How many UG students are there?",
+        "How many undergraduate students are at MCE?",
+        "What is the UG student count?",
+        "how many ug students in mce",
+        "ug student count mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "How many PG students are there in MCE?",
+      "answer": "According to MCE's NIRF 2026 submission, there are 43 postgraduate students.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "PG students",
+        "MCE",
+        "NIRF 2026 43"
+      ],
+      "aliases": [
+        "How many PG students are there?",
+        "How many postgraduate students are at MCE?",
+        "What is the PG student count?",
+        "how many pg students in mce",
+        "pg student count mce"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    },
+    {
+      "verified": true,
+      "question": "Does the total student count include all branches?",
+      "answer": "Yes. The overall student-strength figure represents students across the programs reported by MCE, rather than only one engineering branch.",
+      "source": "User-provided MCE FAQ attachment (cross-checked 2026-10-25)",
+      "keywords": [
+        "total student count branches",
+        "MCE",
+        "programs"
+      ],
+      "aliases": [
+        "Does the student strength include all branches?",
+        "Does the student count cover all programs?",
+        "Does the total include all branches?",
+        "does student count include all branches",
+        "all branches student count"
+      ],
+      "source_type": "user_attachment",
+      "verified_on": "2026-10-25",
+      "reviewed_by": "SthuthiBeam maintainers"
+    }
+  ],
+  "college_fact_templates": [
+    {
+      "verified": false,
+      "question": "What are the current admission fees and deadlines?",
+      "answer": "",
+      "source": "",
+      "note": "Fees and deadlines change every cycle. Add a current official source before setting verified to true."
+    }
+  ]
+}

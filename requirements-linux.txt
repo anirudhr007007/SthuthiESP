@@ -1,0 +1,9 @@
+# Linux workstation dependencies.
+#
+# Speech output on Linux uses pyttsx3 (espeak-ng is normally required by the
+# distribution package). PyAudio needs PortAudio development headers before
+# installation, for example:
+#   Debian/Ubuntu: sudo apt install portaudio19-dev espeak-ng
+#   Fedora:        sudo dnf install portaudio-devel espeak-ng
+-r requirements.txt
+pyttsx3==2.98

@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.11", "3.12"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      - name: Install lint tool only
+        run: python -m pip install --disable-pip-version-check -r requirements-dev.txt
+
+      - name: Lint
+        run: python -m ruff check .
+
+      - name: Compile all Python sources
+        run: python -B -m compileall -q app.py ai_provider.py doctor.py enrollment.py face_utils.py greeting.py recognition_worker.py runtime_env.py settings.py speech_service.py ui_state.py version.py voice_service.py tests tools
+
+      - name: Run dependency-free unit suite
+        run: python -B -m unittest discover -s tests -v
+
+      - name: Audit curated knowledge and paraphrase recall
+        run: python -B -m tools.audit_knowledge --knowledge data/college_knowledge.json

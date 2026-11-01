@@ -1,0 +1,9 @@
+# Optional cloud answer providers.
+#
+# The application works without this file. Install it only when AI_PROVIDER is
+# gemini, openai, or compatible. OpenAI 1.66 is the first release with the
+# Responses API used by ai_provider.py; the adapter also has a dependency-free
+# HTTPS fallback when the SDK is absent.
+-r requirements.txt
+openai==1.66.5
+ddgs==9.16.1

@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "espsthuthi2"
+version = "2.1.0"
+description = "Local-first face-recognition college assistant with verified FAQ answers and optional voice"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "SthuthiBeam contributors" }]
+keywords = [
+    "face-recognition",
+    "deepface",
+    "opencv",
+    "ollama",
+    "college-assistant",
+    "offline-first",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+]
+dependencies = [
+    "numpy==1.26.4",
+    "opencv-python==4.10.0.84",
+    "tensorflow==2.17.0",
+    "tf-keras==2.17.0",
+    "deepface==0.0.93",
+    "SpeechRecognition==3.14.2",
+    "PyAudio==0.2.14",
+]
+
+[project.optional-dependencies]
+windows = ["pywin32==308"]
+linux = ["pyttsx3==2.98"]
+cloud = ["openai==1.66.5"]
+whisper = ["faster-whisper==1.0.3"]
+dev = ["ruff==0.9.10"]
+
+[tool.setuptools]
+# This is an application checkout, not an importable library. Installing the
+# project is only a convenience for resolving dependencies; run app.py from
+# the checkout so data/ remains next to the source.
+py-modules = [
+    "ai_provider",
+    "app",
+    "doctor",
+    "enrollment",
+    "face_utils",
+    "greeting",
+    "recognition_worker",
+    "runtime_env",
+    "settings",
+    "speech_service",
+    "ui_state",
+    "version",
+    "voice_service",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+exclude = [".git", ".cache", ".runtime", ".venv", "__pycache__", "data/training_images"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "W", "I", "B"]
+ignore = [
+    # Long lines are handled by the formatter/reviewer, not the linter.
+    "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests intentionally construct odd values and use local fakes.
+"tests/*.py" = ["B011"]
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = ["tests/*", "tools/*", ".venv/*"]

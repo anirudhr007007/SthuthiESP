@@ -1,0 +1,7 @@
+# Optional local speech-to-text.
+#
+# Install this only when STT_PROVIDER=whisper. Whisper keeps microphone audio
+# on the machine; the model files are downloaded on first use and cached by
+# faster-whisper. Use a larger model for better accuracy if the CPU/GPU allows.
+-r requirements.txt
+faster-whisper==1.0.3

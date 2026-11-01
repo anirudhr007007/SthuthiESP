@@ -1,0 +1,17 @@
+# Core runtime for the local face-recognition assistant.
+#
+# These versions are pinned and tested together on Python 3.11/3.12:
+#   - TensorFlow 2.17 + tf-keras 2.17 keep DeepFace working on Keras 3.
+#   - NumPy 1.26 avoids the NumPy 2 ABI transition in older wheels.
+#   - OpenCV 4.10 provides the camera window used by app.py.
+#
+# Install the platform file instead of this file on a normal workstation:
+#   Windows: pip install -r requirements-windows.txt
+#   Linux:   pip install -r requirements-linux.txt
+numpy==1.26.4
+opencv-python==4.10.0.84
+tensorflow==2.17.0
+tf-keras==2.17.0
+deepface==0.0.93
+SpeechRecognition==3.14.2
+PyAudio==0.2.14
