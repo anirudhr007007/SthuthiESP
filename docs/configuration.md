@@ -72,8 +72,14 @@ under `.runtime/huggingface` (pre-fetch with `--warmup-models`).
 
 ## Speech output
 
+The `SPEECH_ENGINE` variable selects the voice backend; if the chosen
+engine or its model files are missing, the next engine in the chain
+(Kokoro → Piper → system speech) is used automatically. Local models
+download to `.runtime/tts` and are never installed through pip keys.
+
 | Variable | Default | Notes |
 | --- | --- | --- |
+| `SPEECH_ENGINE` | `sapi` | `kokoro` (best quality, ONNX int8, streaming), `piper` (fastest CPU voice), or `sapi` (instant Windows voice) |
 | `SPEECH_OUTPUT` | empty | Windows SAPI audio output name; other platforms use the default |
 | `SPEECH_VOICE` | empty | Voice name; availability depends on the OS |
 | `SPEECH_RATE` | `165` | Words per minute, clamped `80-320`; mapped to SAPI `-10..10` |

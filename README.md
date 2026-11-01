@@ -30,7 +30,8 @@ webcam, speakers, and a graphical desktop. A Raspberry Pi is not required.
    - unknown college-specific question → safe "check the college office"
      fallback, no provider call
    - general question → selected provider (local Ollama by default)
-5. Speaks answers through Windows SAPI or `pyttsx3`, with a bounded queue and
+5. Speaks answers through the configured speech engine — Windows SAPI,
+   local Kokoro, or local Piper — with a bounded queue and
    an echo guard so the microphone does not transcribe the assistant.
 
 ### Privacy at a glance
